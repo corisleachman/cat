@@ -346,11 +346,26 @@ section[id], main[id]{ scroll-margin-top:clamp(5rem, 4rem + 3vw, 7rem); }
   width:100%;
   aspect-ratio:4/5;
   object-fit:cover;
-  /* The source is 1280x853 landscape with Catherine in the right third.
-     A centred crop would cut through her and frame the empty wall, so the
-     window is pushed right. Adjust this one number if the photo changes. */
-  object-position:80% center;
-  filter:saturate(0.94) contrast(1.02);
+  /* Source is 1280x960 (4:3) cropped to 4:5, so 768px of 1280 stays
+     visible. Catherine sits a little right of centre (face ~x825), so the
+     window is nudged right to land her at ~57% across. */
+  object-position:75% center;
+  filter:saturate(0.96) contrast(1.02);
+}
+
+/* Full-width photograph between sections */
+.band-img{
+  margin:0;
+  overflow:hidden;
+  border-radius:2px;
+}
+.band-img img{
+  width:100%;
+  aspect-ratio:16/9;
+  object-fit:cover;
+  /* 1280x853 into 16:9 trims 133px vertically; her head starts around
+     y=85 so a centred window (66–786) keeps her comfortably inside. */
+  object-position:center;
 }
 .portrait figcaption{
   margin-top:var(--s-1);
@@ -935,7 +950,7 @@ section[id], main[id]{ scroll-margin-top:clamp(5rem, 4rem + 3vw, 7rem); }
       </div>
 
       <figure class="portrait" data-load style="--i:2">
-        <img src="catherine-leachman-1.jpeg"
+        <img src="catherine-leachman-2.jpeg"
              alt="Catherine Leachman, counsellor and psychotherapist"/>
         <figcaption>Catherine Leachman · BACP Registered Member</figcaption>
       </figure>
@@ -1047,14 +1062,10 @@ section[id], main[id]{ scroll-margin-top:clamp(5rem, 4rem + 3vw, 7rem); }
   <!-- ── Image slot ───────────────────────────────────── -->
   <section class="band-tight">
     <div class="wrap">
-      <!-- SET UP: replace this block with <img src="..." alt="..."/> when the photo is ready -->
-      <div class="slot" data-ratio="16-9" data-rise>
-        <p class="label">
-          <b>Image slot</b>
-          16 : 9 landscape · around 2000 × 1125 px<br/>
-          something quiet — a room, a window, light on a wall
-        </p>
-      </div>
+      <figure class="band-img" data-unblur>
+        <img src="catherine-leachman-1.jpeg"
+             alt="Catherine Leachman in the room where she works"/>
+      </figure>
     </div>
   </section>
 
