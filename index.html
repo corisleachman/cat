@@ -302,38 +302,43 @@ section[id], main[id]{ scroll-margin-top:clamp(5rem, 4rem + 3vw, 7rem); }
   font-variation-settings:"SOFT" 70, "WONK" 1, "opsz" 144;
   color:var(--clay);
 }
+/* Hero sits in two columns: words left, portrait held at the right */
+.hero-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.14fr) minmax(0,0.86fr);
+  gap:var(--s-4) clamp(2rem, 1rem + 4.5vw, 6rem);
+  align-items:start;
+}
+@media (max-width:900px){
+  .hero-grid{ grid-template-columns:1fr; gap:var(--s-4) 0; }
+}
+
+/* Flex rather than a fixed 2-col grid: the lede and button now live in a
+   narrower column, so they need to wrap on their own terms */
 .hero-foot{
   margin-top:var(--s-4);
-  display:grid;
-  grid-template-columns:minmax(0,1fr) auto;
-  gap:var(--s-3);
-  align-items:end;
-}
-@media (max-width:700px){
-  .hero-foot{ grid-template-columns:1fr; align-items:start; }
+  display:flex;
+  flex-wrap:wrap;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:var(--s-3) var(--s-2);
 }
 .hero-lede{
+  flex:1 1 20ch;
   font-size:var(--t-lead);
   line-height:1.4;
   color:var(--ink-soft);
   max-width:32ch;
   font-weight:400;
 }
+.hero-copy{ margin-top:var(--s-4); }
+.hero-copy p + p{ margin-top:var(--s-2); }
 
 /* Portrait — sticky, held while the words move past it */
-.portrait-rail{
-  margin-top:var(--s-4);
-  display:grid;
-  grid-template-columns:minmax(0,1.05fr) minmax(0,0.95fr);
-  gap:var(--s-4);
-  align-items:start;
-}
-@media (max-width:900px){
-  .portrait-rail{ grid-template-columns:1fr; }
-}
 .portrait{
   position:sticky;
-  top:clamp(5.5rem, 6vw, 8rem);
+  top:clamp(6rem, 6.5vw, 8.5rem);
+  margin:0;
   overflow:hidden;
   border-radius:2px;
 }
@@ -341,6 +346,10 @@ section[id], main[id]{ scroll-margin-top:clamp(5rem, 4rem + 3vw, 7rem); }
   width:100%;
   aspect-ratio:4/5;
   object-fit:cover;
+  /* The source is 1280x853 landscape with Catherine in the right third.
+     A centred crop would cut through her and frame the empty wall, so the
+     window is pushed right. Adjust this one number if the photo changes. */
+  object-position:80% center;
   filter:saturate(0.94) contrast(1.02);
 }
 .portrait figcaption{
@@ -894,32 +903,27 @@ section[id], main[id]{ scroll-margin-top:clamp(5rem, 4rem + 3vw, 7rem); }
 
   <!-- ── Hero ─────────────────────────────────────────── -->
   <section class="hero">
-    <div class="wrap">
-      <p class="hero-kicker" data-load style="--i:0">
-        Integrative counsellor &amp; career coach · Online across the UK
-      </p>
-      <h1 data-load style="--i:1">
-        Somewhere to think when life feels <em>heavy or unclear.</em>
-      </h1>
-      <div class="hero-foot">
-        <p class="hero-lede" data-load style="--i:2">
-          A calm, confidential space to explore anxiety, low mood, overwhelm,
-          grief, and the transitions that reshape a life.
+    <div class="wrap hero-grid">
+
+      <div class="hero-main">
+        <p class="hero-kicker" data-load style="--i:0">
+          Integrative counsellor &amp; career coach · Online across the UK
         </p>
-        <div data-load style="--i:3">
-          <a class="btn" href="#enquiry"><span>Make an enquiry</span></a>
+        <h1 data-load style="--i:1">
+          Somewhere to think when life feels <em>heavy or unclear.</em>
+        </h1>
+        <div class="hero-foot">
+          <p class="hero-lede" data-load style="--i:3">
+            A calm, confidential space to explore anxiety, low mood, overwhelm,
+            grief, and the transitions that reshape a life.
+          </p>
+          <div data-load style="--i:4">
+            <a class="btn" href="#enquiry"><span>Make an enquiry</span></a>
+          </div>
         </div>
-      </div>
 
-      <div class="portrait-rail">
-        <figure class="portrait" data-load style="--i:4; margin:0;">
-          <img src="catherine-leachman-1.jpeg"
-               alt="Catherine Leachman, counsellor and psychotherapist"/>
-          <figcaption>Catherine Leachman · BACP Registered Member</figcaption>
-        </figure>
-
-        <div style="padding-top:var(--s-3)">
-          <p class="measure-wide" data-rise style="font-size:var(--t-lead); line-height:1.4; margin-bottom:var(--s-3)">
+        <div class="hero-copy">
+          <p class="measure-wide" data-rise style="font-size:var(--t-lead); line-height:1.4">
             You have been managing for a while now. From the outside it probably
             looks fine — work gets done, people get looked after.
           </p>
@@ -929,6 +933,13 @@ section[id], main[id]{ scroll-margin-top:clamp(5rem, 4rem + 3vw, 7rem); }
           </p>
         </div>
       </div>
+
+      <figure class="portrait" data-load style="--i:2">
+        <img src="catherine-leachman-1.jpeg"
+             alt="Catherine Leachman, counsellor and psychotherapist"/>
+        <figcaption>Catherine Leachman · BACP Registered Member</figcaption>
+      </figure>
+
     </div>
   </section>
 
