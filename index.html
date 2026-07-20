@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Catherine Leachman — Counselling, Psychotherapy &amp; Career Coaching</title>
+<meta name="description" content="Integrative counselling, psychotherapy and career coaching for adults. Online sessions across the UK. BACP Registered Member."/>
+<meta name="theme-color" content="#F7F2EA"/>
+
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Catherine Leachman — Counselling, Psychotherapy &amp; Career Coaching"/>
+<meta property="og:description" content="A calm, confidential space to explore anxiety, low mood, overwhelm, grief, and the transitions that reshape a life."/>
+<!-- SET UP: once the domain is live, make this an absolute URL, e.g. https://yourdomain.com/catherine-leachman-1.jpeg -->
+<meta property="og:image" content="catherine-leachman-1.jpeg"/>
+
+<link rel="icon" href="catherine-leachman-1.jpeg"/>
+<link rel="apple-touch-icon" href="catherine-leachman-1.jpeg"/>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<!-- Two separate requests: Fraunces needs its italic tuples spelled out, and
+     splitting the families avoids any ambiguity in how the params combine.
+     The SOFT / WONK axes are what stop Fraunces feeling stiff; if a browser
+     or the service ignores them, font-variation-settings degrades silently. -->
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:SOFT,WONK,ital,opsz,wght@0..100,0..1,0,9..144,300..700;0..100,0..1,1,9..144,300..700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..600&display=swap" rel="stylesheet"/>
+
+<style>
+/* ─────────────────────────────────────────────────────────────
+   Catherine Leachman — warm editorial, set like a printed book.
+   Single file. No frameworks, no external JS.
+   ───────────────────────────────────────────────────────────── */
+
+:root{
+  /* Paper & ink — everything tinted warm, nothing pure */
+  --paper:        oklch(97.2% 0.012 78);
+  --paper-deep:   oklch(94.2% 0.018 72);
+  --paper-edge:   oklch(89%   0.022 70);
+  --ink:          oklch(26%   0.021 56);
+  --ink-soft:     oklch(46%   0.020 58);
+  --ink-faint:    oklch(63%   0.017 62);
+  --clay:         oklch(56%   0.115 44);
+  --clay-deep:    oklch(46%   0.105 42);
+  --sage:         oklch(57%   0.048 148);
+  --night:        oklch(23.5% 0.024 52);
+  --night-soft:   oklch(72%   0.020 62);
+
+  --rule: 1px solid oklch(from var(--ink) l c h / 0.14);
+
+  /* Fluid type scale */
+  --t-micro:  clamp(0.6875rem, 0.66rem + 0.14vw, 0.78rem);
+  --t-small:  clamp(0.875rem, 0.85rem + 0.12vw, 0.95rem);
+  --t-body:   clamp(1.0625rem, 1rem + 0.3vw, 1.22rem);
+  --t-lead:   clamp(1.25rem, 1.12rem + 0.62vw, 1.65rem);
+  --t-h3:     clamp(1.5rem, 1.28rem + 1.05vw, 2.3rem);
+  --t-h2:     clamp(2.1rem, 1.6rem + 2.4vw, 4.1rem);
+  --t-h1:     clamp(2.9rem, 1.9rem + 4.6vw, 7rem);
+  --t-huge:   clamp(3.4rem, 1.7rem + 7.4vw, 10.5rem);
+
+  /* Spacing rhythm — deliberately uneven */
+  --s-1: clamp(0.5rem, 0.45rem + 0.25vw, 0.75rem);
+  --s-2: clamp(1rem, 0.9rem + 0.5vw, 1.5rem);
+  --s-3: clamp(1.75rem, 1.5rem + 1.2vw, 2.75rem);
+  --s-4: clamp(3rem, 2.3rem + 3vw, 5.5rem);
+  --s-5: clamp(5rem, 3.5rem + 6.5vw, 11rem);
+  --s-6: clamp(7.5rem, 5rem + 11vw, 18rem);
+
+  --gutter: clamp(1.25rem, 0.6rem + 3.2vw, 4.5rem);
+  --measure: 34ch;
+
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);        /* out-expo-ish */
+  --ease-soft: cubic-bezier(0.33, 1, 0.68, 1);  /* out-cubic */
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+
+html{ -webkit-text-size-adjust:100%; }
+
+@media (prefers-reduced-motion: no-preference){
+  html{ scroll-behavior:smooth; }
+}
+
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  font-size:var(--t-body);
+  line-height:1.62;
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+
+/* Faint paper grain — a single inline SVG, no image request */
+body::before{
+  content:"";
+  position:fixed; inset:0;
+  pointer-events:none; z-index:0;
+  opacity:0.32;
+  mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='180' height='180' filter='url(%23n)' opacity='0.35'/></svg>");
+}
+
+h1,h2,h3,h4{
+  font-family:"Fraunces", Georgia, "Times New Roman", serif;
+  font-variation-settings:"SOFT" 46, "WONK" 1, "opsz" 120;
+  font-weight:380;
+  line-height:1.02;
+  letter-spacing:-0.021em;
+  margin:0;
+  text-wrap:balance;
+}
+
+p{ margin:0 0 1.15em; }
+p:last-child{ margin-bottom:0; }
+
+a{ color:inherit; text-decoration:none; }
+
+::selection{ background:oklch(from var(--clay) l c h / 0.22); }
+
+:focus-visible{
+  outline:2px solid var(--clay);
+  outline-offset:3px;
+  border-radius:2px;
+}
+
+img{ display:block; max-width:100%; height:auto; }
+
+/* ── Shell ──────────────────────────────────────────────── */
+
+.wrap{
+  width:min(100% - var(--gutter)*2, 84rem);
+  margin-inline:auto;
+  position:relative;
+  z-index:1;
+}
+
+/* The editorial spine: narrow marginalia column + wide text column */
+.spread{
+  display:grid;
+  grid-template-columns:minmax(6rem, 13vw) minmax(0,1fr);
+  gap:0 clamp(1.5rem, 1rem + 3vw, 5rem);
+  align-items:start;
+}
+@media (max-width:820px){
+  .spread{ grid-template-columns:1fr; gap:var(--s-2) 0; }
+}
+
+.margin-note{
+  font-size:var(--t-micro);
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  color:var(--ink-faint);
+  font-weight:500;
+  position:sticky;
+  top:clamp(5.5rem, 6vw, 8rem);
+  display:flex;
+  flex-direction:column;
+  gap:0.55em;
+}
+.margin-note .num{
+  font-family:"Fraunces", serif;
+  font-variation-settings:"SOFT" 60, "WONK" 1, "opsz" 20;
+  font-size:1.55em;
+  letter-spacing:0;
+  color:var(--clay);
+  font-weight:400;
+  line-height:1;
+}
+.margin-note .rule{
+  width:2.4rem; height:1px;
+  background:oklch(from var(--ink) l c h / 0.28);
+}
+@media (max-width:820px){
+  .margin-note{
+    position:static;
+    flex-direction:row;
+    align-items:center;
+    gap:0.8em;
+  }
+  .margin-note .rule{ width:1.4rem; }
+}
+
+.measure{ max-width:var(--measure); }
+.measure-wide{ max-width:46ch; }
+
+section{ position:relative; z-index:1; }
+.band{ padding-block:var(--s-5); }
+.band-tight{ padding-block:var(--s-4); }
+.band-tall{ padding-block:var(--s-6); }
+
+.hr{
+  border:0; height:1px;
+  background:oklch(from var(--ink) l c h / 0.13);
+  margin:0;
+}
+
+/* ── Header ─────────────────────────────────────────────── */
+
+.masthead{
+  position:fixed;
+  inset:0 0 auto 0;
+  z-index:60;
+  padding-block:clamp(0.85rem, 0.6rem + 0.8vw, 1.4rem);
+  background:oklch(from var(--paper) l c h / 0.72);
+  backdrop-filter:blur(14px) saturate(1.1);
+  -webkit-backdrop-filter:blur(14px) saturate(1.1);
+  border-bottom:1px solid transparent;
+  transition:border-color 0.5s var(--ease-soft), background 0.5s var(--ease-soft);
+}
+.masthead[data-scrolled="true"]{
+  border-bottom-color:oklch(from var(--ink) l c h / 0.11);
+}
+.masthead .wrap{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:var(--s-2);
+}
+.wordmark{
+  font-family:"Fraunces", serif;
+  font-variation-settings:"SOFT" 50, "WONK" 1, "opsz" 40;
+  font-size:clamp(1.05rem, 0.95rem + 0.45vw, 1.4rem);
+  font-weight:420;
+  letter-spacing:-0.015em;
+  white-space:nowrap;
+}
+.wordmark .sub{
+  display:block;
+  font-family:"Instrument Sans", sans-serif;
+  font-size:var(--t-micro);
+  letter-spacing:0.15em;
+  text-transform:uppercase;
+  color:var(--ink-faint);
+  font-weight:500;
+  margin-top:0.35em;
+}
+.nav{
+  display:flex;
+  align-items:baseline;
+  gap:clamp(1rem, 0.6rem + 1.6vw, 2.4rem);
+  font-size:var(--t-small);
+}
+.nav a{
+  position:relative;
+  padding-block:0.2em;
+  color:var(--ink-soft);
+  transition:color 0.4s var(--ease-soft);
+}
+.nav a::after{
+  content:"";
+  position:absolute;
+  left:0; right:0; bottom:0;
+  height:1px;
+  background:var(--clay);
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform 0.5s var(--ease);
+}
+.nav a:hover{ color:var(--ink); }
+.nav a:hover::after{ transform:scaleX(1); }
+@media (max-width:700px){
+  .nav a[data-optional]{ display:none; }
+}
+
+/* Hairline scroll progress */
+.progress{
+  position:fixed; top:0; left:0;
+  height:2px; width:100%;
+  transform:scaleX(0); transform-origin:left;
+  background:linear-gradient(90deg, var(--clay), var(--sage));
+  z-index:70;
+  opacity:0.75;
+}
+
+/* ── Hero ───────────────────────────────────────────────── */
+
+.hero{
+  padding-top:clamp(7rem, 5rem + 9vw, 12rem);
+  padding-bottom:var(--s-4);
+}
+.hero-kicker{
+  font-size:var(--t-micro);
+  letter-spacing:0.19em;
+  text-transform:uppercase;
+  color:var(--ink-faint);
+  font-weight:500;
+  margin-bottom:var(--s-3);
+}
+.hero h1{
+  font-size:var(--t-h1);
+  font-variation-settings:"SOFT" 52, "WONK" 1, "opsz" 144;
+  font-weight:340;
+  max-width:15ch;
+}
+.hero h1 em{
+  font-style:italic;
+  font-variation-settings:"SOFT" 70, "WONK" 1, "opsz" 144;
+  color:var(--clay);
+}
+.hero-foot{
+  margin-top:var(--s-4);
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:var(--s-3);
+  align-items:end;
+}
+@media (max-width:700px){
+  .hero-foot{ grid-template-columns:1fr; align-items:start; }
+}
+.hero-lede{
+  font-size:var(--t-lead);
+  line-height:1.4;
+  color:var(--ink-soft);
+  max-width:32ch;
+  font-weight:400;
+}
+
+/* Portrait — sticky, held while the words move past it */
+.portrait-rail{
+  margin-top:var(--s-4);
+  display:grid;
+  grid-template-columns:minmax(0,1.05fr) minmax(0,0.95fr);
+  gap:var(--s-4);
+  align-items:start;
+}
+@media (max-width:900px){
+  .portrait-rail{ grid-template-columns:1fr; }
+}
+.portrait{
+  position:sticky;
+  top:clamp(5.5rem, 6vw, 8rem);
+  overflow:hidden;
+  border-radius:2px;
+}
+.portrait img{
+  width:100%;
+  aspect-ratio:4/5;
+  object-fit:cover;
+  filter:saturate(0.94) contrast(1.02);
+}
+.portrait figcaption{
+  margin-top:var(--s-1);
+  font-size:var(--t-micro);
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--ink-faint);
+}
+@media (max-width:900px){ .portrait{ position:static; } }
+
+/* ── Big scrubbed statement ─────────────────────────────── */
+
+.statement{
+  font-family:"Fraunces", serif;
+  font-variation-settings:"SOFT" 44, "WONK" 1, "opsz" 144;
+  font-size:var(--t-h2);
+  font-weight:330;
+  line-height:1.1;
+  letter-spacing:-0.022em;
+  max-width:20ch;
+}
+.statement .w{
+  color:oklch(from var(--ink) l c h / 0.17);
+  transition:color 0.05s linear;
+  will-change:color;
+}
+.statement .w[data-key="true"]{
+  font-style:italic;
+  font-variation-settings:"SOFT" 76, "WONK" 1, "opsz" 144;
+}
+
+/* ── Quiet held moment ──────────────────────────────────── */
+
+.held{
+  background:var(--night);
+  color:var(--paper-deep);
+  padding-block:var(--s-6);
+  overflow:hidden;
+}
+.held .margin-note{ color:var(--night-soft); }
+.held .margin-note .rule{ background:oklch(from var(--paper) l c h / 0.3); }
+.held .margin-note .num{ color:oklch(68% 0.11 46); }
+.held h2{
+  font-size:var(--t-h2);
+  font-weight:320;
+  font-variation-settings:"SOFT" 58, "WONK" 1, "opsz" 144;
+  max-width:19ch;
+}
+.held h2 em{
+  font-style:italic;
+  color:oklch(72% 0.10 48);
+  font-variation-settings:"SOFT" 80, "WONK" 1, "opsz" 144;
+}
+.held p{ color:oklch(from var(--paper) l c h / 0.72); }
+
+/* ── Lists that aren't cards ────────────────────────────── */
+
+.reasons{
+  list-style:none;
+  margin:0; padding:0;
+  border-top:var(--rule);
+}
+.reasons li{
+  border-bottom:var(--rule);
+  padding-block:clamp(1.1rem, 0.9rem + 0.9vw, 1.9rem);
+  display:grid;
+  grid-template-columns:2.6rem minmax(0,1fr);
+  gap:var(--s-2);
+  align-items:baseline;
+  transition:background 0.5s var(--ease-soft);
+}
+.reasons li:hover{ background:oklch(from var(--clay) l c h / 0.045); }
+.reasons .idx{
+  font-family:"Fraunces", serif;
+  font-variation-settings:"SOFT" 60, "WONK" 1, "opsz" 20;
+  font-size:var(--t-small);
+  color:var(--clay);
+}
+.reasons .txt{
+  font-size:clamp(1.05rem, 0.98rem + 0.5vw, 1.45rem);
+  line-height:1.36;
+  font-family:"Fraunces", serif;
+  font-variation-settings:"SOFT" 50, "WONK" 0, "opsz" 60;
+  font-weight:360;
+  letter-spacing:-0.012em;
+}
+
+/* ── Two-up comparison, no cards ────────────────────────── */
+
+.twoup{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(min(100%, 21rem), 1fr));
+  gap:var(--s-4) clamp(2rem, 1rem + 4vw, 6rem);
+}
+.twoup > div{ position:relative; }
+.twoup > div + div::before{
+  content:"";
+  position:absolute;
+  left:calc(clamp(2rem, 1rem + 4vw, 6rem) / -2);
+  top:0.4em; bottom:0;
+  width:1px;
+  background:oklch(from var(--ink) l c h / 0.13);
+}
+@media (max-width:56rem){ .twoup > div + div::before{ display:none; } }
+.twoup h3{
+  font-size:var(--t-h3);
+  font-weight:360;
+  margin-bottom:var(--s-2);
+}
+.tag{
+  display:inline-block;
+  font-size:var(--t-micro);
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  color:var(--clay-deep);
+  font-weight:500;
+  margin-bottom:var(--s-1);
+}
+
+/* ── Definition-style blocks (how I work) ───────────────── */
+
+.principles{ border-top:var(--rule); }
+.principle{
+  border-bottom:var(--rule);
+  padding-block:var(--s-3);
+  display:grid;
+  grid-template-columns:minmax(0,0.42fr) minmax(0,1fr);
+  gap:var(--s-2) var(--s-3);
+}
+@media (max-width:760px){ .principle{ grid-template-columns:1fr; } }
+.principle h3{
+  font-size:var(--t-h3);
+  font-weight:350;
+}
+.principle h3 span{
+  display:block;
+  font-family:"Instrument Sans", sans-serif;
+  font-size:var(--t-micro);
+  letter-spacing:0.15em;
+  text-transform:uppercase;
+  color:var(--ink-faint);
+  font-weight:500;
+  margin-top:0.7em;
+}
+.principle p{ color:var(--ink-soft); }
+
+/* ── Credentials ────────────────────────────────────────── */
+
+.creds{
+  list-style:none; margin:0; padding:0;
+  display:flex; flex-wrap:wrap;
+  gap:0.5rem 0.55rem;
+}
+.creds li{
+  font-size:var(--t-small);
+  padding:0.5em 0.95em;
+  border:1px solid oklch(from var(--ink) l c h / 0.18);
+  border-radius:100px;
+  color:var(--ink-soft);
+  transition:border-color 0.4s var(--ease-soft), color 0.4s var(--ease-soft);
+}
+.creds li:hover{ border-color:var(--clay); color:var(--ink); }
+
+/* ── Steps ──────────────────────────────────────────────── */
+
+.steps{
+  list-style:none; margin:0; padding:0;
+  counter-reset:step;
+}
+.steps li{
+  counter-increment:step;
+  display:grid;
+  grid-template-columns:3.2rem minmax(0,1fr);
+  gap:var(--s-2);
+  padding-block:var(--s-3);
+  border-bottom:var(--rule);
+}
+.steps li:first-child{ border-top:var(--rule); }
+.steps li::before{
+  content:counter(step, decimal-leading-zero);
+  font-family:"Fraunces", serif;
+  font-variation-settings:"SOFT" 60, "WONK" 1, "opsz" 30;
+  font-size:var(--t-body);
+  color:var(--clay);
+  line-height:1.5;
+}
+.steps h3{
+  font-size:clamp(1.15rem, 1.05rem + 0.5vw, 1.5rem);
+  font-weight:380;
+  margin-bottom:0.4em;
+}
+.steps p{ color:var(--ink-soft); max-width:52ch; }
+
+/* ── Practical facts ────────────────────────────────────── */
+
+.facts{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  gap:var(--s-3) clamp(1.5rem, 1rem + 3vw, 4rem);
+}
+.facts dt{
+  font-family:"Fraunces", serif;
+  font-variation-settings:"SOFT" 55, "WONK" 1, "opsz" 60;
+  font-size:var(--t-h3);
+  font-weight:350;
+  letter-spacing:-0.018em;
+  margin-bottom:0.45em;
+  padding-bottom:0.45em;
+  border-bottom:2px solid oklch(from var(--clay) l c h / 0.35);
+}
+.facts dd{
+  margin:0;
+  color:var(--ink-soft);
+  font-size:var(--t-small);
+  line-height:1.62;
+}
+
+/* ── Image slots (awaiting real photography) ────────────── */
+
+.slot{
+  position:relative;
+  background:
+    linear-gradient(135deg,
+      oklch(from var(--paper-deep) l c h / 1) 0%,
+      oklch(from var(--paper-edge) l c h / 1) 100%);
+  border:1px dashed oklch(from var(--ink) l c h / 0.22);
+  border-radius:2px;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:var(--s-2);
+}
+.slot[data-ratio="3-2"]{ aspect-ratio:3/2; }
+.slot[data-ratio="4-5"]{ aspect-ratio:4/5; }
+.slot[data-ratio="16-9"]{ aspect-ratio:16/9; }
+.slot .label{
+  font-size:var(--t-micro);
+  letter-spacing:0.15em;
+  text-transform:uppercase;
+  color:var(--ink-faint);
+  font-weight:500;
+  line-height:1.9;
+}
+.slot .label b{
+  display:block;
+  font-family:"Fraunces", serif;
+  font-variation-settings:"SOFT" 60, "WONK" 1, "opsz" 30;
+  font-size:1.5em;
+  letter-spacing:0.02em;
+  text-transform:none;
+  color:var(--ink-soft);
+  font-weight:400;
+  margin-bottom:0.3em;
+}
+
+/* ── Questions ──────────────────────────────────────────── */
+
+.questions{
+  list-style:none; margin:0; padding:0;
+}
+.questions li{
+  font-family:"Fraunces", serif;
+  font-variation-settings:"SOFT" 52, "WONK" 1, "opsz" 90;
+  font-size:clamp(1.35rem, 1.05rem + 1.5vw, 2.6rem);
+  font-weight:330;
+  line-height:1.24;
+  letter-spacing:-0.02em;
+  padding-block:0.42em;
+  color:oklch(from var(--ink) l c h / 0.28);
+  transition:color 0.7s var(--ease-soft);
+  max-width:22ch;
+}
+.questions li[data-lit="true"]{ color:var(--ink); }
+
+/* ── Enquiry ────────────────────────────────────────────── */
+
+.form-grid{ max-width:38rem; }
+.field{ margin-bottom:var(--s-3); }
+.field label{
+  display:block;
+  font-size:var(--t-micro);
+  letter-spacing:0.15em;
+  text-transform:uppercase;
+  color:var(--ink-faint);
+  font-weight:500;
+  margin-bottom:0.65em;
+}
+.field input,
+.field textarea,
+.field select{
+  width:100%;
+  font:inherit;
+  font-size:var(--t-body);
+  color:var(--ink);
+  background:transparent;
+  border:0;
+  border-bottom:1px solid oklch(from var(--ink) l c h / 0.25);
+  border-radius:0;
+  padding:0.6em 0;
+  appearance:none;
+  transition:border-color 0.45s var(--ease-soft);
+}
+.field textarea{ min-height:7.5em; resize:vertical; line-height:1.55; }
+.field select{
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8'><path d='M1 1l5 5 5-5' fill='none' stroke='%236b5a4e' stroke-width='1.4'/></svg>");
+  background-repeat:no-repeat;
+  background-position:right 0.2em center;
+}
+.field input:focus,
+.field textarea:focus,
+.field select:focus{
+  outline:none;
+  border-bottom-color:var(--clay);
+}
+.field ::placeholder{ color:var(--ink-faint); opacity:0.75; }
+
+.consent{
+  display:flex; gap:0.8em; align-items:flex-start;
+  margin-bottom:var(--s-3);
+  font-size:var(--t-small);
+  color:var(--ink-soft);
+  line-height:1.55;
+  cursor:pointer;
+}
+.consent input{
+  width:1.05em; height:1.05em;
+  margin-top:0.32em;
+  flex:0 0 auto;
+  accent-color:var(--clay);
+}
+
+.btn{
+  font:inherit;
+  font-size:var(--t-small);
+  letter-spacing:0.04em;
+  cursor:pointer;
+  background:var(--ink);
+  color:var(--paper);
+  border:1px solid var(--ink);
+  border-radius:100px;
+  padding:1.05em 2.4em;
+  position:relative;
+  overflow:hidden;
+  transition:color 0.5s var(--ease), border-color 0.5s var(--ease);
+}
+.btn span{ position:relative; z-index:1; }
+.btn::before{
+  content:"";
+  position:absolute; inset:0;
+  background:var(--clay);
+  transform:translateY(101%);
+  transition:transform 0.55s var(--ease);
+}
+.btn:hover{ border-color:var(--clay); }
+.btn:hover::before{ transform:translateY(0); }
+
+.btn-ghost{
+  background:transparent;
+  color:var(--ink);
+  border-color:oklch(from var(--ink) l c h / 0.3);
+}
+.btn-ghost::before{ background:var(--ink); }
+.btn-ghost:hover{ color:var(--paper); border-color:var(--ink); }
+
+.status{
+  margin-top:var(--s-2);
+  font-size:var(--t-small);
+  color:var(--clay-deep);
+  min-height:1.5em;
+  opacity:0;
+  transform:translateY(4px);
+  transition:opacity 0.45s var(--ease-soft), transform 0.45s var(--ease-soft);
+}
+.status[data-shown="true"]{ opacity:1; transform:none; }
+
+.safety{
+  margin-top:var(--s-4);
+  padding:var(--s-3);
+  background:oklch(from var(--clay) l c h / 0.07);
+  border-left:2px solid var(--clay);
+  font-size:var(--t-small);
+  line-height:1.65;
+  color:var(--ink-soft);
+  max-width:44ch;
+}
+.safety strong{ color:var(--ink); font-weight:600; }
+.safety a{ border-bottom:1px solid oklch(from var(--clay) l c h / 0.5); }
+
+/* ── Footer ─────────────────────────────────────────────── */
+
+.footer{
+  background:var(--night);
+  color:oklch(from var(--paper) l c h / 0.66);
+  padding-block:var(--s-5) var(--s-3);
+  font-size:var(--t-small);
+  margin-top:var(--s-5);
+}
+.footer a{ color:oklch(from var(--paper) l c h / 0.82); }
+.footer a:hover{ color:oklch(72% 0.10 48); }
+.footer-cols{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+  gap:var(--s-3) var(--s-3);
+  padding-bottom:var(--s-4);
+}
+.footer h4{
+  font-family:"Instrument Sans", sans-serif;
+  font-size:var(--t-micro);
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  color:oklch(from var(--paper) l c h / 0.45);
+  font-weight:500;
+  margin-bottom:1.1em;
+}
+.footer ul{ list-style:none; margin:0; padding:0; display:grid; gap:0.55em; }
+.footer-mark{
+  font-family:"Fraunces", serif;
+  font-variation-settings:"SOFT" 50, "WONK" 1, "opsz" 144;
+  font-size:var(--t-huge);
+  font-weight:300;
+  line-height:0.86;
+  letter-spacing:-0.035em;
+  color:oklch(from var(--paper) l c h / 0.13);
+  padding-block:var(--s-2) var(--s-3);
+  white-space:nowrap;
+  overflow:hidden;
+}
+.footer-base{
+  display:flex; flex-wrap:wrap;
+  justify-content:space-between; gap:var(--s-2);
+  padding-top:var(--s-2);
+  border-top:1px solid oklch(from var(--paper) l c h / 0.14);
+  font-size:var(--t-micro);
+  letter-spacing:0.06em;
+  color:oklch(from var(--paper) l c h / 0.45);
+}
+
+/* ─────────────────────────────────────────────────────────
+   MOTION
+   ───────────────────────────────────────────────────────── */
+
+/* Line-masked reveal (JS wraps each measured line) */
+.line-mask{ overflow:hidden; display:block; }
+.line-inner{
+  display:block;
+  transform:translateY(105%);
+  opacity:0;
+  transition:
+    transform 1.05s var(--ease),
+    opacity 0.85s var(--ease-soft);
+}
+.is-in .line-inner{ transform:translateY(0); opacity:1; }
+
+/* Generic fade-up */
+[data-rise]{
+  opacity:0;
+  transform:translateY(1.6rem);
+  transition:
+    opacity 0.95s var(--ease-soft),
+    transform 1.05s var(--ease);
+}
+[data-rise].is-in{ opacity:1; transform:none; }
+
+/* Image: blur to sharp */
+[data-unblur]{
+  clip-path:inset(0 0 100% 0);
+  filter:blur(14px);
+  transform:scale(1.04);
+  transition:
+    clip-path 1.3s var(--ease),
+    filter 1.3s var(--ease-soft),
+    transform 1.5s var(--ease);
+}
+[data-unblur].is-in{
+  clip-path:inset(0 0 0 0);
+  filter:blur(0);
+  transform:scale(1);
+}
+
+/* Hero load orchestration */
+.hero [data-load]{
+  opacity:0;
+  transform:translateY(2.2rem);
+  filter:blur(8px);
+}
+.fonts-ready .hero [data-load]{
+  animation:enter 1.25s var(--ease) forwards;
+  animation-delay:calc(var(--i, 0) * 105ms + 120ms);
+}
+@keyframes enter{
+  to{ opacity:1; transform:none; filter:blur(0); }
+}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{
+    animation-duration:0.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:0.01ms !important;
+    scroll-behavior:auto !important;
+  }
+  .line-inner,[data-rise],.hero [data-load]{ opacity:1 !important; transform:none !important; filter:none !important; }
+  [data-unblur]{ clip-path:none !important; filter:none !important; transform:none !important; }
+  .statement .w{ color:var(--ink) !important; }
+  .questions li{ color:var(--ink) !important; }
+  .progress{ display:none; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<header class="masthead" id="masthead">
+  <div class="wrap">
+    <a class="wordmark" href="#top">
+      Catherine Leachman
+      <span class="sub">Counselling &amp; Psychotherapy</span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="#about">About</a>
+      <a href="#working" data-optional>Working together</a>
+      <a href="#process" data-optional>How it works</a>
+      <a href="#enquiry">Enquire</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ── Hero ─────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="wrap">
+      <p class="hero-kicker" data-load style="--i:0">
+        Integrative counsellor &amp; career coach · Online across the UK
+      </p>
+      <h1 data-load style="--i:1">
+        Somewhere to think when life feels <em>heavy or unclear.</em>
+      </h1>
+      <div class="hero-foot">
+        <p class="hero-lede" data-load style="--i:2">
+          A calm, confidential space to explore anxiety, low mood, overwhelm,
+          grief, and the transitions that reshape a life.
+        </p>
+        <div data-load style="--i:3">
+          <a class="btn" href="#enquiry"><span>Make an enquiry</span></a>
+        </div>
+      </div>
+
+      <div class="portrait-rail">
+        <figure class="portrait" data-load style="--i:4; margin:0;">
+          <img src="catherine-leachman-1.jpeg"
+               alt="Catherine Leachman, counsellor and psychotherapist"/>
+          <figcaption>Catherine Leachman · BACP Registered Member</figcaption>
+        </figure>
+
+        <div style="padding-top:var(--s-3)">
+          <p class="measure-wide" data-rise style="font-size:var(--t-lead); line-height:1.4; margin-bottom:var(--s-3)">
+            You have been managing for a while now. From the outside it probably
+            looks fine — work gets done, people get looked after.
+          </p>
+          <p class="measure" data-rise style="color:var(--ink-soft)">
+            But something underneath has been quietly asking for attention. This
+            is counselling for adults who want space to think, not advice to follow.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 01 The statement ─────────────────────────────── -->
+  <section class="band" id="begin">
+    <div class="wrap spread">
+      <div class="margin-note">
+        <span class="num">01</span>
+        <span class="rule"></span>
+        <span>Where the work begins</span>
+      </div>
+      <div>
+        <p class="statement" data-scrub>
+          You are holding it together. Most days, it works. But coping, managing
+          and getting through are not the same as feeling well.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="hr"/>
+
+  <!-- ── 02 How it feels ──────────────────────────────── -->
+  <section class="band" id="feeling">
+    <div class="wrap spread">
+      <div class="margin-note">
+        <span class="num">02</span>
+        <span class="rule"></span>
+        <span>How things feel now</span>
+      </div>
+      <div>
+        <h2 data-split style="font-size:var(--t-h2); max-width:17ch; margin-bottom:var(--s-3)">
+          When getting through the day takes everything
+        </h2>
+        <div class="twoup">
+          <div>
+            <p data-rise>
+              You are functioning. You get up, you do what needs doing, you keep
+              other people going.
+            </p>
+            <p data-rise style="color:var(--ink-soft)">
+              But the effort it takes has quietly gone up. Sleep is thinner.
+              Patience is shorter. Things that used to feel manageable now feel
+              like a lot.
+            </p>
+          </div>
+          <div>
+            <p data-rise style="font-family:'Fraunces',serif; font-variation-settings:'SOFT' 60,'WONK' 1,'opsz' 60; font-size:var(--t-lead); line-height:1.35; font-weight:350">
+              None of that means something is wrong with you. Usually it means
+              something has been carried alone for too long.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 03 Held moment ───────────────────────────────── -->
+  <section class="held" id="first">
+    <div class="wrap spread">
+      <div class="margin-note">
+        <span class="num">03</span>
+        <span class="rule"></span>
+        <span>The first conversation</span>
+      </div>
+      <div>
+        <h2 data-split style="margin-bottom:var(--s-3)">
+          You do not need to arrive with <em>the right words.</em>
+        </h2>
+        <p class="measure" data-rise>
+          You only need to start talking, at your own pace, with someone whose
+          job is to listen carefully and stay alongside you.
+        </p>
+        <p class="measure" data-rise style="margin-top:var(--s-2)">
+          You do not need to be in crisis to deserve support, and you do not
+          need to have it worked out beforehand.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 04 Reasons ───────────────────────────────────── -->
+  <section class="band" id="reasons">
+    <div class="wrap spread">
+      <div class="margin-note">
+        <span class="num">04</span>
+        <span class="rule"></span>
+        <span>Reasons people get in touch</span>
+      </div>
+      <div>
+        <h2 data-split style="font-size:var(--t-h2); max-width:14ch; margin-bottom:var(--s-3)">
+          You might recognise some of this
+        </h2>
+        <ul class="reasons">
+          <li data-rise><span class="idx">i</span><span class="txt">Anxiety that hums in the background, or arrives without warning</span></li>
+          <li data-rise><span class="idx">ii</span><span class="txt">Low mood, flatness, or a sense that things have lost their colour</span></li>
+          <li data-rise><span class="idx">iii</span><span class="txt">Stress and burnout from work or study that rest no longer seems to fix</span></li>
+          <li data-rise><span class="idx">iv</span><span class="txt">Grief and loss, including sudden or traumatic bereavement</span></li>
+          <li data-rise><span class="idx">v</span><span class="txt">A transition — a diagnosis, a change of direction, a loss of confidence — that needs room to be understood</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Image slot ───────────────────────────────────── -->
+  <section class="band-tight">
+    <div class="wrap">
+      <!-- SET UP: replace this block with <img src="..." alt="..."/> when the photo is ready -->
+      <div class="slot" data-ratio="16-9" data-rise>
+        <p class="label">
+          <b>Image slot</b>
+          16 : 9 landscape · around 2000 × 1125 px<br/>
+          something quiet — a room, a window, light on a wall
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 05 Working together ──────────────────────────── -->
+  <section class="band" id="working">
+    <div class="wrap spread">
+      <div class="margin-note">
+        <span class="num">05</span>
+        <span class="rule"></span>
+        <span>Two kinds of support</span>
+      </div>
+      <div>
+        <h2 data-split style="font-size:var(--t-h2); max-width:15ch; margin-bottom:var(--s-3)">
+          Counselling &amp; career coaching
+        </h2>
+        <p class="measure-wide" data-rise style="margin-bottom:var(--s-4)">
+          Some people come to me for counselling, some for career coaching, and
+          some move between the two at different stages.
+        </p>
+
+        <div class="twoup">
+          <div data-rise>
+            <span class="tag">Counselling</span>
+            <h3>A space to explore how you feel</h3>
+            <p style="color:var(--ink-soft)">
+              Confidential, at a pace that suits you. My work is integrative and
+              trauma-informed, drawing on person-centred, CBT-informed and
+              solution-focused approaches — adapted to you rather than fitted to
+              a rigid model.
+            </p>
+            <p style="color:var(--ink-soft)">
+              It can help with anxiety and low mood, stress and burnout, grief
+              and bereavement, confidence and self-esteem, life transitions, and
+              neurodivergent identity — whether long known or newly being explored.
+            </p>
+          </div>
+          <div data-rise>
+            <span class="tag">Career coaching</span>
+            <h3>Structured, practical, forward-facing</h3>
+            <p style="color:var(--ink-soft)">
+              For navigating a change of direction, a loss of confidence at work,
+              a return after illness, or questions about purpose and next steps.
+            </p>
+            <p style="color:var(--ink-soft)">
+              It is psychologically informed, because of my background in mental
+              health — but it is not therapy, and it does not involve the
+              treatment of mental health conditions.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="hr"/>
+
+  <!-- ── 06 How I work ────────────────────────────────── -->
+  <section class="band" id="principles">
+    <div class="wrap spread">
+      <div class="margin-note">
+        <span class="num">06</span>
+        <span class="rule"></span>
+        <span>What to expect</span>
+      </div>
+      <div>
+        <h2 data-split style="font-size:var(--t-h2); max-width:12ch; margin-bottom:var(--s-4)">
+          How I work
+        </h2>
+        <div class="principles">
+          <article class="principle" data-rise>
+            <h3>Confidentiality<span>and care</span></h3>
+            <p>
+              What you bring to sessions stays between us. I keep brief, secure
+              notes in line with professional and legal requirements, and your
+              information is not shared without your consent — except in the rare
+              circumstances where there is a serious concern about safety. A full
+              privacy notice is available on request.
+            </p>
+          </article>
+          <article class="principle" data-rise>
+            <h3>Collaboration<span>not instruction</span></h3>
+            <p>
+              We decide together how the work goes. There is no fixed number of
+              sessions, and we review things together as we go. I adapt the
+              approach to you rather than applying one model to everybody.
+            </p>
+          </article>
+          <article class="principle" data-rise>
+            <h3>Ethical practice<span>and supervision</span></h3>
+            <p>
+              I work in line with the BACP Ethical Framework and under regular
+              clinical supervision, where I reflect on my practice to make sure
+              it stays safe and ethical. Clients are never identifiable. I work
+              within the limits of my competence, and if another form of support
+              would serve you better, I will say so and help with signposting.
+            </p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 07 About ─────────────────────────────────────── -->
+  <section class="band" id="about">
+    <div class="wrap spread">
+      <div class="margin-note">
+        <span class="num">07</span>
+        <span class="rule"></span>
+        <span>About Catherine</span>
+      </div>
+      <div>
+        <h2 data-split style="font-size:var(--t-h2); max-width:16ch; margin-bottom:var(--s-4)">
+          Twenty years of sitting with people through change
+        </h2>
+
+        <div class="twoup" style="margin-bottom:var(--s-4)">
+          <div data-rise>
+            <p>
+              I have spent over twenty years supporting people through change —
+              across schools, colleges, universities, the NHS and the third
+              sector. I currently work as a Mental Health Specialist in a
+              university setting.
+            </p>
+            <p style="color:var(--ink-soft)">
+              I trained at the University of East London on a BACP-accredited
+              Postgraduate Diploma in Integrative Counselling and Psychotherapy,
+              supported by a competitive scholarship, alongside a clinical
+              placement within NHS Talking Therapies. I am a Registered Member of
+              the BACP, working towards accreditation, and I practise under
+              regular clinical supervision.
+            </p>
+          </div>
+          <div>
+            <!-- SET UP: replace with a second photograph when available -->
+            <div class="slot" data-ratio="4-5" data-rise>
+              <p class="label">
+                <b>Image slot</b>
+                4 : 5 portrait · around 1200 × 1500 px<br/>
+                a second, softer portrait
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <p data-rise style="font-size:var(--t-micro); letter-spacing:0.15em; text-transform:uppercase; color:var(--ink-faint); font-weight:500; margin-bottom:var(--s-2)">
+          Qualifications &amp; experience
+        </p>
+        <ul class="creds" data-rise>
+          <li>BACP Registered Member</li>
+          <li>PGDip Integrative Counselling &amp; Psychotherapy</li>
+          <li>NHS Talking Therapies placement</li>
+          <li>University Mental Health Specialist</li>
+          <li>20+ years in education &amp; careers</li>
+          <li>Trauma-informed practice</li>
+          <li>Neurodiversity-affirming</li>
+          <li>Bereavement &amp; suicide-loss trained</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 08 Questions ─────────────────────────────────── -->
+  <section class="held" id="questions">
+    <div class="wrap spread">
+      <div class="margin-note">
+        <span class="num">08</span>
+        <span class="rule"></span>
+        <span>Is this for you?</span>
+      </div>
+      <div>
+        <ul class="questions" data-lit-list>
+          <li>Do you want space to think without being judged?</li>
+          <li>Are you tired of managing this on your own?</li>
+          <li>Would it help to understand your own patterns?</li>
+          <li>Are you facing a change you did not choose?</li>
+          <li>Do you want support that adapts to you?</li>
+        </ul>
+        <p data-rise style="margin-top:var(--s-3); font-style:italic; color:oklch(from var(--paper) l c h / 0.7)">
+          If any of those landed, we should probably talk.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 09 Process ───────────────────────────────────── -->
+  <section class="band" id="process">
+    <div class="wrap spread">
+      <div class="margin-note">
+        <span class="num">09</span>
+        <span class="rule"></span>
+        <span>No waiting list, no pressure</span>
+      </div>
+      <div>
+        <h2 data-split style="font-size:var(--t-h2); max-width:13ch; margin-bottom:var(--s-3)">
+          How it works
+        </h2>
+        <p class="measure-wide" data-rise style="margin-bottom:var(--s-4); color:var(--ink-soft)">
+          Getting started is deliberately simple. Nothing is decided before you
+          are ready.
+        </p>
+        <ol class="steps">
+          <li data-rise>
+            <div>
+              <h3>You get in touch</h3>
+              <p>Send an enquiry using the form below. I read every message myself and aim to respond within five working days.</p>
+            </div>
+          </li>
+          <li data-rise>
+            <div>
+              <h3>A short initial conversation</h3>
+              <p>A brief, free conversation to explore what you are looking for and whether I am the right person to support you. There is no obligation to continue beyond this.</p>
+            </div>
+          </li>
+          <li data-rise>
+            <div>
+              <h3>Your first session</h3>
+              <p>Fifty minutes, online by secure video. We start wherever feels manageable — you do not need to have prepared anything.</p>
+            </div>
+          </li>
+          <li data-rise>
+            <div>
+              <h3>We agree how to work</h3>
+              <p>Counselling is usually weekly or fortnightly. Career coaching can be more flexible. We agree what suits you and review it together as we go.</p>
+            </div>
+          </li>
+          <li data-rise>
+            <div>
+              <h3>We continue, at your pace</h3>
+              <p>There is no fixed number of sessions. Some people come for short-term support around one issue; others prefer longer-term work.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <hr class="hr"/>
+
+  <!-- ── 10 Practical ─────────────────────────────────── -->
+  <section class="band" id="practical">
+    <div class="wrap spread">
+      <div class="margin-note">
+        <span class="num">10</span>
+        <span class="rule"></span>
+        <span>Practical things</span>
+      </div>
+      <div>
+        <dl class="facts">
+          <div data-rise>
+            <dt>£70</dt>
+            <dd>Per fifty-minute session, for both counselling and career coaching. Any reduced-fee or limited availability arrangements are discussed openly where appropriate.</dd>
+          </div>
+          <div data-rise>
+            <dt>Online</dt>
+            <dd>Sessions are held by secure video, across the UK. This keeps things flexible and accessible — including for people who find it easier to talk from a familiar environment.</dd>
+          </div>
+          <div data-rise>
+            <dt>No fixed end</dt>
+            <dd>Some people come for short-term support around a specific issue; others prefer longer-term work. We review things together regularly.</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 11 Enquiry ───────────────────────────────────── -->
+  <section class="band-tall" id="enquiry">
+    <div class="wrap spread">
+      <div class="margin-note">
+        <span class="num">11</span>
+        <span class="rule"></span>
+        <span>Reply within five working days</span>
+      </div>
+      <div>
+        <h2 data-split style="font-size:var(--t-h2); max-width:13ch; margin-bottom:var(--s-3)">
+          Make an enquiry
+        </h2>
+        <p class="measure-wide" data-rise style="margin-bottom:var(--s-4); color:var(--ink-soft)">
+          Taking the first step can feel daunting, especially if you are already
+          overwhelmed or unsure where to begin. You do not have to explain
+          everything in the first message — a sentence or two is enough.
+        </p>
+
+        <!-- SET UP: replace the action URL with your own form endpoint
+             (Formspree, Basin, Netlify Forms). Until then the form
+             will not send anywhere and says so on submit. -->
+        <form class="form-grid" id="enquiry-form"
+              action="https://formspree.io/f/YOUR_FORM_ID" method="POST" data-rise>
+          <div class="field">
+            <label for="f-name">Your name</label>
+            <input id="f-name" name="name" type="text" placeholder="First name is fine" required/>
+          </div>
+          <div class="field">
+            <label for="f-email">Email address</label>
+            <input id="f-email" name="email" type="email" placeholder="Where I can reply" required/>
+          </div>
+          <div class="field">
+            <label for="f-interest">What are you enquiring about?</label>
+            <select id="f-interest" name="interest">
+              <option>Counselling</option>
+              <option>Career coaching</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-message">Anything you would like me to know</label>
+            <textarea id="f-message" name="message" placeholder="A sentence or two is enough."></textarea>
+          </div>
+          <label class="consent">
+            <input type="checkbox" name="consent" required/>
+            <span>I am happy for Catherine to hold my details in order to respond to this enquiry.</span>
+          </label>
+          <button class="btn" type="submit"><span>Send enquiry</span></button>
+          <p class="status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
+
+        <aside class="safety" data-rise>
+          <strong>If you need support right now.</strong>
+          I am not able to offer crisis or emergency care. If you are in severe
+          distress, or having thoughts of harming yourself or someone else,
+          please contact your GP, call NHS 111, or call 999 in an emergency.
+          Samaritans are free, day or night, on
+          <a href="tel:116123">116 123</a>.
+        </aside>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-cols">
+      <div>
+        <h4>Sections</h4>
+        <ul>
+          <li><a href="#about">About Catherine</a></li>
+          <li><a href="#working">Counselling &amp; coaching</a></li>
+          <li><a href="#principles">How I work</a></li>
+          <li><a href="#process">How it works</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Practical</h4>
+        <ul>
+          <li><a href="#practical">Fees &amp; sessions</a></li>
+          <li><a href="#reasons">Is this for you</a></li>
+          <li><a href="#enquiry">Make an enquiry</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Professional body</h4>
+        <ul>
+          <li><a href="https://www.bacp.co.uk/search/Register" target="_blank" rel="noopener">BACP Register</a></li>
+          <li><a href="https://www.bacp.co.uk/events-and-resources/ethics-and-standards/ethical-framework-for-the-counselling-professions/" target="_blank" rel="noopener">Ethical Framework</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Sessions</h4>
+        <ul>
+          <li>Online, UK-wide</li>
+          <li>Weekly or fortnightly</li>
+          <li>Fifty minutes</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-mark" aria-hidden="true">Catherine Leachman</div>
+
+    <div class="footer-base">
+      <span>© 2026 Catherine Leachman · BACP Registered Member</span>
+      <span>Privacy notice available on request</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ── Masthead state + scroll progress ────────────────── */
+  var masthead = document.getElementById("masthead");
+  var progress = document.getElementById("progress");
+  var ticking = false;
+
+  function onScroll(){
+    var y = window.scrollY || document.documentElement.scrollTop;
+    masthead.setAttribute("data-scrolled", y > 24 ? "true" : "false");
+    if (progress){
+      var h = document.documentElement.scrollHeight - window.innerHeight;
+      progress.style.transform = "scaleX(" + (h > 0 ? Math.min(y / h, 1) : 0) + ")";
+    }
+    scrubAll();
+    litAll();
+    ticking = false;
+  }
+  function requestScroll(){
+    if (!ticking){ ticking = true; requestAnimationFrame(onScroll); }
+  }
+
+  /* ── Reveal on enter ─────────────────────────────────── */
+  var io = null;
+  if ("IntersectionObserver" in window){
+    io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){
+          e.target.classList.add("is-in");
+          io.unobserve(e.target);
+        }
+      });
+    }, { rootMargin: "0px 0px -12% 0px", threshold: 0.06 });
+  }
+
+  function observe(el){
+    if (io) io.observe(el); else el.classList.add("is-in");
+  }
+
+  /* ── Split headings into measured lines ──────────────── */
+  function splitLines(el){
+    if (el.dataset.split === "done") return;
+    var html = el.innerHTML;
+    el.dataset.original = html;
+
+    // Wrap every word, preserving inline <em>
+    var tmp = document.createElement("div");
+    tmp.innerHTML = html;
+
+    function wrapWords(node){
+      var out = document.createDocumentFragment();
+      Array.prototype.slice.call(node.childNodes).forEach(function(child){
+        if (child.nodeType === 3){
+          child.textContent.split(/(\s+)/).forEach(function(tok){
+            if (!tok) return;
+            if (/^\s+$/.test(tok)){ out.appendChild(document.createTextNode(" ")); return; }
+            var s = document.createElement("span");
+            s.className = "wd";
+            s.style.display = "inline-block";
+            s.textContent = tok;
+            out.appendChild(s);
+          });
+        } else if (child.nodeType === 1){
+          var clone = child.cloneNode(false);
+          clone.appendChild(wrapWords(child));
+          out.appendChild(clone);
+        }
+      });
+      return out;
+    }
+
+    el.innerHTML = "";
+    el.appendChild(wrapWords(tmp));
+
+    // Group words by vertical position into lines
+    var words = Array.prototype.slice.call(el.querySelectorAll(".wd"));
+    if (!words.length){ el.dataset.split = "done"; return; }
+
+    var lines = [];
+    var current = [];
+    var lastTop = null;
+    words.forEach(function(w){
+      var top = Math.round(w.offsetTop);
+      if (lastTop === null || Math.abs(top - lastTop) < 4){
+        current.push(w);
+      } else {
+        lines.push(current); current = [w];
+      }
+      lastTop = top;
+    });
+    if (current.length) lines.push(current);
+
+    // Rebuild as masked lines
+    var frag = document.createDocumentFragment();
+    lines.forEach(function(lineWords){
+      var mask = document.createElement("span");
+      mask.className = "line-mask";
+      var inner = document.createElement("span");
+      inner.className = "line-inner";
+      lineWords.forEach(function(w, i){
+        // walk up to the top-level node inside el
+        var node = w;
+        while (node.parentNode && node.parentNode !== el) node = node.parentNode;
+        if (node.parentNode === el && node !== w){
+          // inline wrapper (e.g. <em>) — move whole wrapper once
+          if (!node.dataset.moved){ node.dataset.moved = "1"; inner.appendChild(node); inner.appendChild(document.createTextNode(" ")); }
+        } else {
+          inner.appendChild(w);
+          inner.appendChild(document.createTextNode(" "));
+        }
+      });
+      mask.appendChild(inner);
+      frag.appendChild(mask);
+    });
+    el.innerHTML = "";
+    el.appendChild(frag);
+
+    // Stagger the lines
+    Array.prototype.slice.call(el.querySelectorAll(".line-inner")).forEach(function(n, i){
+      n.style.transitionDelay = (i * 85) + "ms";
+    });
+    el.dataset.split = "done";
+  }
+
+  /* ── Scroll-scrubbed statement ───────────────────────── */
+  var scrubbers = [];
+
+  function buildScrub(el){
+    var text = el.textContent.replace(/\s+/g, " ").trim();
+    var keyWords = ["coping,", "managing", "well."];
+    el.textContent = "";
+    var spans = [];
+    text.split(" ").forEach(function(word, i){
+      var s = document.createElement("span");
+      s.className = "w";
+      s.textContent = word;
+      s.style.display = "inline-block";
+      if (keyWords.indexOf(word.toLowerCase()) !== -1) s.dataset.key = "true";
+      el.appendChild(s);
+      el.appendChild(document.createTextNode(" "));
+      spans.push(s);
+    });
+    scrubbers.push({ el: el, words: spans });
+  }
+
+  function scrubAll(){
+    if (reduced) return;
+    var vh = window.innerHeight;
+    scrubbers.forEach(function(s){
+      var r = s.el.getBoundingClientRect();
+      if (r.bottom < -200 || r.top > vh + 200) return;
+      var start = vh * 0.88;
+      var end = vh * 0.32;
+      var p = (start - r.top) / (start - end);
+      p = Math.max(0, Math.min(1, p));
+      var n = s.words.length;
+      var spread = n + 7;
+      s.words.forEach(function(w, i){
+        var wp = Math.max(0, Math.min(1, p * spread - i));
+        var a = 0.17 + 0.83 * wp;
+        w.style.color = "oklch(from var(--ink) l c h / " + a.toFixed(3) + ")";
+      });
+    });
+  }
+
+  /* ── Questions light up one at a time ────────────────── */
+  var litItems = [];
+  function litAll(){
+    if (reduced) return;
+    var vh = window.innerHeight;
+    litItems.forEach(function(li){
+      var r = li.getBoundingClientRect();
+      var mid = r.top + r.height / 2;
+      li.dataset.lit = (mid > vh * 0.18 && mid < vh * 0.82) ? "true" : "false";
+    });
+  }
+
+  /* ── Form guard ──────────────────────────────────────── */
+  var form = document.getElementById("enquiry-form");
+  if (form){
+    form.addEventListener("submit", function(e){
+      var status = document.getElementById("form-status");
+      if (form.getAttribute("action").indexOf("YOUR_FORM_ID") !== -1){
+        e.preventDefault();
+        status.textContent = "This form is not connected yet — add a form endpoint to enable sending.";
+        status.setAttribute("data-shown", "true");
+      }
+    });
+  }
+
+  /* ── Boot ────────────────────────────────────────────── */
+  var booted = false;
+  function boot(){
+    if (booted) return;
+    booted = true;
+    document.documentElement.classList.add("fonts-ready");
+
+    Array.prototype.slice.call(document.querySelectorAll("[data-split]")).forEach(function(el){
+      splitLines(el);
+      observe(el);
+    });
+    Array.prototype.slice.call(document.querySelectorAll("[data-rise]")).forEach(observe);
+    Array.prototype.slice.call(document.querySelectorAll("[data-unblur]")).forEach(observe);
+    Array.prototype.slice.call(document.querySelectorAll("[data-scrub]")).forEach(buildScrub);
+    litItems = Array.prototype.slice.call(document.querySelectorAll("[data-lit-list] li"));
+
+    onScroll();
+    window.addEventListener("scroll", requestScroll, { passive:true });
+    window.addEventListener("resize", requestScroll, { passive:true });
+  }
+
+  // Fail-safe: content must never stay hidden because a font, a promise
+  // or an API didn't behave. Whatever happens, boot within 1.2s.
+  if (document.fonts && document.fonts.ready){
+    document.fonts.ready.then(boot).catch(boot);
+  }
+  window.addEventListener("load", boot);
+  setTimeout(boot, 1200);
+  if (document.readyState === "complete") boot();
+})();
+</script>
+
+</body>
+</html>
