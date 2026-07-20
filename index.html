@@ -187,6 +187,8 @@ img{ display:block; max-width:100%; height:auto; }
 .measure-wide{ max-width:46ch; }
 
 section{ position:relative; z-index:1; }
+/* Stop the fixed masthead covering headings when a nav anchor is clicked */
+section[id], main[id]{ scroll-margin-top:clamp(5rem, 4rem + 3vw, 7rem); }
 .band{ padding-block:var(--s-5); }
 .band-tight{ padding-block:var(--s-4); }
 .band-tall{ padding-block:var(--s-6); }
@@ -362,9 +364,13 @@ section{ position:relative; z-index:1; }
   max-width:20ch;
 }
 .statement .w{
-  color:oklch(from var(--ink) l c h / 0.17);
   transition:color 0.05s linear;
   will-change:color;
+}
+/* The faint start state only applies once JS is running, so a failed
+   boot leaves the statement fully readable rather than near-invisible. */
+.fonts-ready .statement .w{
+  color:oklch(from var(--ink) l c h / 0.17);
 }
 .statement .w[data-key="true"]{
   font-style:italic;
@@ -608,11 +614,21 @@ section{ position:relative; z-index:1; }
   line-height:1.24;
   letter-spacing:-0.02em;
   padding-block:0.42em;
-  color:oklch(from var(--ink) l c h / 0.28);
   transition:color 0.7s var(--ease-soft);
   max-width:22ch;
+
+  /* Dim/lit pair, themed per context. Default = light background. */
+  --q-dim:oklch(from var(--ink) l c h / 0.26);
+  --q-lit:var(--ink);
+  color:var(--q-lit);           /* readable even if JS never runs */
 }
-.questions li[data-lit="true"]{ color:var(--ink); }
+/* On the dark bands the ink pair inverts, or the text is invisible */
+.held .questions li{
+  --q-dim:oklch(from var(--paper) l c h / 0.24);
+  --q-lit:var(--paper-deep);
+}
+.fonts-ready .questions li{ color:var(--q-dim); }
+.fonts-ready .questions li[data-lit="true"]{ color:var(--q-lit); }
 
 /* ── Enquiry ────────────────────────────────────────────── */
 
@@ -672,9 +688,15 @@ section{ position:relative; z-index:1; }
 }
 
 .btn{
+  display:inline-flex;          /* <a class="btn"> is inline by default —
+                                   without this the padding collapses */
+  align-items:center;
+  justify-content:center;
+  text-align:center;
   font:inherit;
   font-size:var(--t-small);
   letter-spacing:0.04em;
+  line-height:1;
   cursor:pointer;
   background:var(--ink);
   color:var(--paper);
@@ -843,7 +865,7 @@ section{ position:relative; z-index:1; }
   .line-inner,[data-rise],.hero [data-load]{ opacity:1 !important; transform:none !important; filter:none !important; }
   [data-unblur]{ clip-path:none !important; filter:none !important; transform:none !important; }
   .statement .w{ color:var(--ink) !important; }
-  .questions li{ color:var(--ink) !important; }
+  .questions li{ color:var(--q-lit) !important; }
   .progress{ display:none; }
 }
 </style>
