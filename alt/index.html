@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Catherine Leachman — Counselling, Psychotherapy &amp; Career Coaching</title>
+<meta name="description" content="Integrative counselling, psychotherapy and career coaching for adults. Online sessions across the UK. BACP Registered Member."/>
+<meta name="theme-color" content="#EFEDE9"/>
+<meta name="robots" content="noindex"/><!-- alternate version, kept out of search -->
+
+<link rel="icon" href="../catherine-leachman-1.jpeg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+
+<style>
+/* ─────────────────────────────────────────────────────────
+   Catherine Leachman — version two.
+   Quiet studio register: bone ground, no accent colour,
+   wide-tracked uppercase navigation, staggered image pairs,
+   a great deal of air, and motion that only ever fades.
+   ───────────────────────────────────────────────────────── */
+
+:root{
+  --bone:      #EFEDE9;
+  --bone-warm: #E7E3DC;
+  --bone-deep: #DCD7CE;
+  --ink:       #35322E;
+  --ink-mid:   #6B655D;
+  --ink-soft:  #8E877D;
+  --hair:      rgba(53,50,46,0.16);
+
+  --t-nav:    0.6875rem;
+  --t-micro:  0.6875rem;
+  --t-small:  0.875rem;
+  --t-body:   clamp(0.98rem, 0.93rem + 0.22vw, 1.09rem);
+  --t-lead:   clamp(1.15rem, 1rem + 0.7vw, 1.6rem);
+  --t-h3:     clamp(1.35rem, 1.15rem + 0.9vw, 2rem);
+  --t-h2:     clamp(1.9rem, 1.4rem + 2.2vw, 3.4rem);
+  --t-h1:     clamp(2.4rem, 1.5rem + 3.9vw, 5.4rem);
+
+  --s-1: 0.5rem;
+  --s-2: clamp(0.9rem, 0.8rem + 0.5vw, 1.4rem);
+  --s-3: clamp(1.6rem, 1.3rem + 1.4vw, 2.8rem);
+  --s-4: clamp(3rem, 2.2rem + 3.4vw, 6rem);
+  --s-5: clamp(5.5rem, 3.6rem + 8vw, 13rem);
+  --s-6: clamp(8rem, 5rem + 14vw, 22rem);
+
+  --gutter: clamp(1.25rem, 0.5rem + 3.4vw, 5rem);
+  --nav-h: 4.5rem;
+
+  --slow: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+html{ -webkit-text-size-adjust:100%; }
+@media (prefers-reduced-motion: no-preference){ html{ scroll-behavior:smooth; } }
+
+body{
+  margin:0;
+  background:var(--bone);
+  color:var(--ink);
+  font-family:"Jost", ui-sans-serif, system-ui, sans-serif;
+  font-size:var(--t-body);
+  font-weight:300;
+  line-height:1.92;
+  letter-spacing:0.005em;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+h1,h2,h3,h4{
+  font-family:"Cormorant Garamond", Garamond, Georgia, serif;
+  font-weight:300;
+  line-height:1.12;
+  letter-spacing:0.002em;
+  margin:0;
+  text-wrap:balance;
+}
+
+p{ margin:0 0 1.4em; }
+p:last-child{ margin-bottom:0; }
+a{ color:inherit; text-decoration:none; }
+img{ display:block; max-width:100%; height:auto; }
+::selection{ background:var(--bone-deep); }
+:focus-visible{ outline:1px solid var(--ink); outline-offset:4px; }
+
+/* ── Shell ──────────────────────────────────────────── */
+
+.wrap{
+  width:min(100% - var(--gutter)*2, 82rem);
+  margin-inline:auto;
+}
+.band{ padding-block:var(--s-5); }
+.band-lg{ padding-block:var(--s-6); }
+section[id]{ scroll-margin-top:calc(var(--nav-h) + 1rem); }
+
+/* Wide-tracked uppercase label, used throughout */
+.label{
+  font-size:var(--t-micro);
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  font-weight:400;
+  color:var(--ink-soft);
+  line-height:1.6;
+}
+
+/* Underlined uppercase link — the only "button" in this design */
+.ulink{
+  display:inline-block;
+  font-size:var(--t-micro);
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  font-weight:400;
+  padding-bottom:0.45em;
+  border-bottom:1px solid var(--ink);
+  transition:color 0.6s var(--slow), border-color 0.6s var(--slow);
+}
+.ulink:hover{ color:var(--ink-soft); border-color:var(--ink-soft); }
+
+.rule{ height:1px; background:var(--hair); border:0; margin:0; }
+
+/* ── Navigation ─────────────────────────────────────── */
+
+.nav{
+  position:fixed; inset:0 0 auto 0; z-index:50;
+  height:var(--nav-h);
+  display:flex; align-items:center;
+  background:rgba(239,237,233,0);
+  transition:background 0.8s var(--slow), border-color 0.8s var(--slow);
+  border-bottom:1px solid transparent;
+}
+.nav[data-solid="true"]{
+  background:rgba(239,237,233,0.94);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border-bottom-color:var(--hair);
+}
+.nav .wrap{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  gap:var(--s-2);
+  width:min(100% - var(--gutter)*2, 74rem);
+}
+.nav-side{ display:flex; gap:clamp(1.2rem,0.6rem+2.2vw,3.4rem); }
+.nav-side.right{ justify-content:flex-end; }
+.nav a.n{
+  font-size:var(--t-nav);
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  font-weight:400;
+  color:var(--ink-mid);
+  white-space:nowrap;
+  transition:color 0.5s var(--slow);
+}
+.nav a.n:hover{ color:var(--ink); }
+.nav-mark{
+  font-family:"Cormorant Garamond", Georgia, serif;
+  font-size:1.15rem;
+  letter-spacing:0.06em;
+  color:var(--ink);
+  white-space:nowrap;
+}
+/* Over the hero photograph the bar is invisible and the type is light */
+.nav:not([data-solid="true"]) a.n,
+.nav:not([data-solid="true"]) .nav-mark{ color:rgba(255,255,255,0.92); }
+
+@media (max-width:860px){
+  .nav .wrap{ grid-template-columns:1fr auto; }
+  .nav-side.left{ display:none; }
+  .nav-side.right{ gap:1.1rem; }
+  .nav a.n[data-drop]{ display:none; }
+}
+
+/* ── Hero: full-bleed photograph ────────────────────── */
+
+.hero{
+  position:relative;
+  min-height:min(94svh, 60rem);
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  background:var(--bone-deep);
+}
+.hero-img{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  object-position:center 38%;
+  transform:scale(1.06);
+  opacity:0;
+  transition:transform 2.6s var(--slow), opacity 1.8s ease-out;
+}
+.ready .hero-img{ transform:scale(1); opacity:1; }
+.hero::after{
+  content:"";
+  position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(40,36,32,0.36) 0%, rgba(40,36,32,0.06) 34%, rgba(40,36,32,0.22) 100%);
+}
+.hero-inner{
+  position:relative; z-index:2;
+  text-align:center;
+  color:#fff;
+  padding:var(--nav-h) var(--gutter) var(--s-4);
+  max-width:34rem;
+}
+.hero h1{
+  font-size:var(--t-h1);
+  font-weight:300;
+  line-height:1.06;
+  margin-bottom:var(--s-2);
+  text-shadow:0 1px 26px rgba(30,26,22,0.28);
+}
+.hero h1 em{ font-style:italic; }
+.hero .label{ color:rgba(255,255,255,0.86); }
+.hero-cta{ margin-top:var(--s-3); }
+.hero-cta .ulink{ color:#fff; border-color:rgba(255,255,255,0.7); }
+.hero-cta .ulink:hover{ color:rgba(255,255,255,0.75); border-color:rgba(255,255,255,0.4); }
+
+/* ── Text + staggered image pair ────────────────────── */
+
+.split{
+  display:grid;
+  grid-template-columns:minmax(0,0.82fr) minmax(0,1.18fr);
+  gap:var(--s-4) clamp(2rem,1rem+5vw,7rem);
+  align-items:start;
+}
+@media (max-width:900px){ .split{ grid-template-columns:1fr; } }
+
+/* Two photographs, offset and overlapping, as on a studio page */
+.stagger{ position:relative; padding-bottom:clamp(3rem,2rem+6vw,9rem); }
+.stagger .a{ width:64%; }
+.stagger .b{
+  width:58%;
+  position:absolute;
+  right:0;
+  top:clamp(2.5rem,1.5rem+5vw,7rem);
+}
+.stagger img{ width:100%; }
+.stagger .a img{ aspect-ratio:3/4; object-fit:cover; object-position:80% center; }
+.stagger .b img{ aspect-ratio:4/3; object-fit:cover; }
+@media (max-width:620px){
+  .stagger{ padding-bottom:0; }
+  .stagger .a{ width:82%; }
+  .stagger .b{ position:static; width:82%; margin-left:auto; margin-top:var(--s-2); }
+}
+
+.measure{ max-width:38ch; }
+.lead{
+  font-family:"Cormorant Garamond", Georgia, serif;
+  font-size:var(--t-lead);
+  line-height:1.45;
+  font-weight:300;
+  color:var(--ink);
+}
+
+/* ── Section headings ───────────────────────────────── */
+
+.head{
+  display:grid;
+  grid-template-columns:minmax(0,0.82fr) minmax(0,1.18fr);
+  gap:var(--s-2) clamp(2rem,1rem+5vw,7rem);
+  align-items:baseline;
+  margin-bottom:var(--s-4);
+}
+@media (max-width:900px){ .head{ grid-template-columns:1fr; } }
+.head h2{ font-size:var(--t-h2); max-width:18ch; }
+.head h2 em{ font-style:italic; }
+
+/* ── Quiet full-width statement ─────────────────────── */
+
+.statement{
+  text-align:center;
+  padding-block:var(--s-6);
+}
+.statement p{
+  font-family:"Cormorant Garamond", Georgia, serif;
+  font-size:clamp(1.5rem, 1.1rem + 2.1vw, 3.1rem);
+  font-weight:300;
+  font-style:italic;
+  line-height:1.32;
+  max-width:24ch;
+  margin-inline:auto;
+}
+
+/* ── Lists ──────────────────────────────────────────── */
+
+.rows{ list-style:none; margin:0; padding:0; border-top:1px solid var(--hair); }
+.rows li{
+  border-bottom:1px solid var(--hair);
+  padding-block:clamp(1.1rem,0.9rem+0.9vw,1.7rem);
+  display:grid;
+  grid-template-columns:minmax(0,0.82fr) minmax(0,1.18fr);
+  gap:0.5rem clamp(2rem,1rem+5vw,7rem);
+  align-items:baseline;
+}
+@media (max-width:900px){ .rows li{ grid-template-columns:1fr; } }
+.rows .n{ font-size:var(--t-micro); letter-spacing:0.22em; color:var(--ink-soft); }
+.rows .t{
+  font-family:"Cormorant Garamond", Georgia, serif;
+  font-size:var(--t-h3);
+  font-weight:300;
+  line-height:1.3;
+  max-width:30ch;
+}
+.rows p{ margin:0.5em 0 0; color:var(--ink-mid); font-size:var(--t-small); max-width:52ch; }
+
+/* ── Two columns of prose ───────────────────────────── */
+
+.cols{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(min(100%,20rem),1fr));
+  gap:var(--s-4) clamp(2rem,1rem+5vw,7rem);
+}
+.cols h3{ font-size:var(--t-h3); margin-bottom:var(--s-2); }
+.cols p{ color:var(--ink-mid); }
+
+/* ── Facts ──────────────────────────────────────────── */
+
+.facts{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(min(100%,15rem),1fr));
+  gap:var(--s-3) clamp(2rem,1rem+4vw,5rem);
+  margin:0;
+}
+.facts dt{
+  font-family:"Cormorant Garamond", Georgia, serif;
+  font-size:var(--t-h3);
+  font-weight:300;
+  padding-bottom:0.5em;
+  margin-bottom:0.7em;
+  border-bottom:1px solid var(--hair);
+}
+.facts dd{ margin:0; color:var(--ink-mid); font-size:var(--t-small); }
+
+/* ── Credentials ────────────────────────────────────── */
+
+.creds{ list-style:none; margin:0; padding:0; columns:2; column-gap:var(--s-3); }
+@media (max-width:620px){ .creds{ columns:1; } }
+.creds li{
+  break-inside:avoid;
+  font-size:var(--t-small);
+  color:var(--ink-mid);
+  padding-block:0.55em;
+  border-bottom:1px solid var(--hair);
+}
+
+/* ── Image slot still to fill ───────────────────────── */
+
+.slot{
+  aspect-ratio:4/5;
+  background:var(--bone-warm);
+  border:1px solid var(--hair);
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:var(--s-2);
+}
+
+/* ── Form ───────────────────────────────────────────── */
+
+.form{ max-width:34rem; }
+.field{ margin-bottom:var(--s-3); }
+.field label{ display:block; margin-bottom:0.7em; }
+.field input,.field textarea,.field select{
+  width:100%;
+  font:inherit; font-size:var(--t-body);
+  color:var(--ink);
+  background:transparent;
+  border:0; border-bottom:1px solid var(--hair);
+  border-radius:0;
+  padding:0.65em 0;
+  appearance:none;
+  transition:border-color 0.6s var(--slow);
+}
+.field textarea{ min-height:7em; resize:vertical; line-height:1.7; }
+.field input:focus,.field textarea:focus,.field select:focus{
+  outline:none; border-bottom-color:var(--ink);
+}
+.field ::placeholder{ color:var(--ink-soft); }
+.consent{
+  display:flex; gap:0.8em; align-items:flex-start;
+  font-size:var(--t-small); color:var(--ink-mid);
+  margin-bottom:var(--s-3); cursor:pointer; line-height:1.6;
+}
+.consent input{ width:0.95em; height:0.95em; margin-top:0.5em; flex:0 0 auto; accent-color:var(--ink); }
+button.ulink{ background:none; border:0; border-bottom:1px solid var(--ink); font-family:inherit; cursor:pointer; padding:0 0 0.45em; }
+.status{ margin-top:var(--s-2); font-size:var(--t-small); color:var(--ink-mid); opacity:0; transition:opacity 0.5s ease; }
+.status[data-shown="true"]{ opacity:1; }
+
+.safety{
+  margin-top:var(--s-4);
+  padding-top:var(--s-2);
+  border-top:1px solid var(--hair);
+  font-size:var(--t-small);
+  color:var(--ink-mid);
+  max-width:44ch;
+}
+.safety strong{ color:var(--ink); font-weight:400; }
+.safety a{ border-bottom:1px solid var(--hair); }
+
+/* ── Footer ─────────────────────────────────────────── */
+
+.foot{
+  padding-block:var(--s-4) var(--s-3);
+  border-top:1px solid var(--hair);
+}
+.foot-cols{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(min(100%,11rem),1fr));
+  gap:var(--s-3);
+  margin-bottom:var(--s-4);
+}
+.foot ul{ list-style:none; margin:0.9em 0 0; padding:0; display:grid; gap:0.6em; }
+.foot li{ font-size:var(--t-small); color:var(--ink-mid); }
+.foot a:hover{ color:var(--ink); }
+.foot-base{
+  display:flex; flex-wrap:wrap; justify-content:space-between; gap:var(--s-2);
+  padding-top:var(--s-2); border-top:1px solid var(--hair);
+}
+
+/* ── Motion: fades only, slow ───────────────────────── */
+
+[data-fade]{
+  opacity:0;
+  transform:translateY(1.1rem);
+  transition:opacity 1.5s var(--slow), transform 1.6s var(--slow);
+}
+[data-fade].in{ opacity:1; transform:none; }
+[data-fade][data-d="1"]{ transition-delay:0.14s; }
+[data-fade][data-d="2"]{ transition-delay:0.28s; }
+[data-fade][data-d="3"]{ transition-delay:0.42s; }
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{
+    animation-duration:0.01ms !important;
+    transition-duration:0.01ms !important;
+    scroll-behavior:auto !important;
+  }
+  [data-fade]{ opacity:1 !important; transform:none !important; }
+  .hero-img{ opacity:1 !important; transform:none !important; }
+}
+</style>
+</head>
+
+<body>
+
+<nav class="nav" id="nav">
+  <div class="wrap">
+    <div class="nav-side left">
+      <a class="n" href="#about">About</a>
+      <a class="n" href="#working" data-drop>Working together</a>
+      <a class="n" href="#process" data-drop>How it works</a>
+    </div>
+    <a class="nav-mark" href="#top">Catherine Leachman</a>
+    <div class="nav-side right">
+      <a class="n" href="#practical" data-drop>Fees</a>
+      <a class="n" href="#enquiry">Enquire</a>
+    </div>
+  </div>
+</nav>
+
+<main id="top">
+
+  <!-- Hero ─────────────────────────────────────────── -->
+  <header class="hero">
+    <img class="hero-img" src="../catherine-leachman-1.jpeg"
+         alt="Catherine Leachman in the room where she works"/>
+    <div class="hero-inner">
+      <p class="label" data-fade>Counselling · Psychotherapy · Career coaching</p>
+      <h1 data-fade data-d="1">Somewhere to think when life feels <em>heavy or unclear</em></h1>
+      <p class="label" data-fade data-d="2">Online, across the United Kingdom</p>
+      <div class="hero-cta" data-fade data-d="3">
+        <a class="ulink" href="#enquiry">Make an enquiry</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Intro + staggered pair ───────────────────────── -->
+  <section class="band" id="intro">
+    <div class="wrap split">
+      <div>
+        <p class="label" data-fade>Where the work begins</p>
+      </div>
+      <div>
+        <p class="lead" data-fade style="margin-bottom:var(--s-3)">
+          You have been managing for a while now. From the outside it probably
+          looks fine — work gets done, people get looked after. But something
+          underneath has been quietly asking for attention.
+        </p>
+        <p class="measure" data-fade data-d="1" style="color:var(--ink-mid)">
+          I offer a calm, confidential space to explore anxiety, low mood,
+          overwhelm, grief, and the transitions that reshape a life. This is
+          counselling for adults who want space to think, not advice to follow.
+        </p>
+        <p style="margin-top:var(--s-3)" data-fade data-d="2">
+          <a class="ulink" href="#working">What I offer</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="wrap split" style="margin-top:var(--s-5)">
+      <div></div>
+      <div class="stagger">
+        <figure class="a" data-fade style="margin:0">
+          <img src="../catherine-leachman-2.jpeg" alt="Catherine Leachman"/>
+        </figure>
+        <figure class="b" data-fade data-d="2" style="margin:0">
+          <img src="../catherine-leachman-1.jpeg" alt="The room where sessions are held"/>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Statement ────────────────────────────────────── -->
+  <section class="statement">
+    <div class="wrap">
+      <p data-fade>
+        Coping, managing and getting through are not the same as feeling well.
+      </p>
+    </div>
+  </section>
+
+  <!-- How it feels ─────────────────────────────────── -->
+  <section class="band" id="feeling">
+    <div class="wrap">
+      <div class="head">
+        <p class="label" data-fade>How things feel now</p>
+        <h2 data-fade>When getting through the day <em>takes everything</em></h2>
+      </div>
+      <div class="split">
+        <div></div>
+        <div class="cols">
+          <div data-fade>
+            <p>You are functioning. You get up, you do what needs doing, you keep
+              other people going.</p>
+            <p>But the effort it takes has quietly gone up. Sleep is thinner.
+              Patience is shorter. Things that used to feel manageable now feel
+              like a lot.</p>
+          </div>
+          <div data-fade data-d="1">
+            <p class="lead">None of that means something is wrong with you.
+              Usually it means something has been carried alone for too long.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reasons ──────────────────────────────────────── -->
+  <section class="band" id="reasons">
+    <div class="wrap">
+      <div class="head">
+        <p class="label" data-fade>Reasons people get in touch</p>
+        <h2 data-fade>You might recognise <em>some of this</em></h2>
+      </div>
+      <ul class="rows">
+        <li data-fade><span class="n">I</span><span class="t">Anxiety that hums in the background, or arrives without warning</span></li>
+        <li data-fade><span class="n">II</span><span class="t">Low mood, flatness, or a sense that things have lost their colour</span></li>
+        <li data-fade><span class="n">III</span><span class="t">Stress and burnout from work or study that rest no longer seems to fix</span></li>
+        <li data-fade><span class="n">IV</span><span class="t">Grief and loss, including sudden or traumatic bereavement</span></li>
+        <li data-fade><span class="n">V</span><span class="t">A transition — a diagnosis, a change of direction, a loss of confidence — that needs room to be understood</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Working together ─────────────────────────────── -->
+  <section class="band" id="working">
+    <div class="wrap">
+      <div class="head">
+        <p class="label" data-fade>Two kinds of support</p>
+        <h2 data-fade>Counselling &amp; <em>career coaching</em></h2>
+      </div>
+      <div class="split">
+        <div></div>
+        <div class="cols">
+          <div data-fade>
+            <p class="label" style="margin-bottom:var(--s-2)">Counselling</p>
+            <h3 style="margin-bottom:var(--s-2)">A space to explore how you feel</h3>
+            <p>Confidential, at a pace that suits you. Integrative and
+              trauma-informed, drawing on person-centred, CBT-informed and
+              solution-focused approaches — adapted to you rather than fitted to
+              a rigid model.</p>
+            <p>It can help with anxiety and low mood, stress and burnout, grief
+              and bereavement, confidence and self-esteem, life transitions, and
+              neurodivergent identity.</p>
+          </div>
+          <div data-fade data-d="1">
+            <p class="label" style="margin-bottom:var(--s-2)">Career coaching</p>
+            <h3 style="margin-bottom:var(--s-2)">Structured and forward-facing</h3>
+            <p>For navigating a change of direction, a loss of confidence at
+              work, a return after illness, or questions about purpose and next
+              steps.</p>
+            <p>It is psychologically informed, because of my background in
+              mental health — but it is not therapy, and it does not involve the
+              treatment of mental health conditions.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule"/>
+
+  <!-- How I work ───────────────────────────────────── -->
+  <section class="band" id="principles">
+    <div class="wrap">
+      <div class="head">
+        <p class="label" data-fade>What to expect</p>
+        <h2 data-fade>How I <em>work</em></h2>
+      </div>
+      <ul class="rows">
+        <li data-fade>
+          <span class="n">Confidentiality</span>
+          <div>
+            <span class="t">What you bring to sessions stays between us</span>
+            <p>I keep brief, secure notes in line with professional and legal
+              requirements, and your information is not shared without your
+              consent — except in the rare circumstances where there is a serious
+              concern about safety. A full privacy notice is available on request.</p>
+          </div>
+        </li>
+        <li data-fade>
+          <span class="n">Collaboration</span>
+          <div>
+            <span class="t">We decide together how the work goes</span>
+            <p>There is no fixed number of sessions, and we review things
+              together as we go. I adapt the approach to you rather than applying
+              one model to everybody.</p>
+          </div>
+        </li>
+        <li data-fade>
+          <span class="n">Ethics</span>
+          <div>
+            <span class="t">BACP framework, and regular supervision</span>
+            <p>I work under regular clinical supervision, where I reflect on my
+              practice to make sure it stays safe and ethical. Clients are never
+              identifiable. If another form of support would serve you better, I
+              will say so and help with signposting.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- About ────────────────────────────────────────── -->
+  <section class="band" id="about">
+    <div class="wrap">
+      <div class="head">
+        <p class="label" data-fade>About Catherine</p>
+        <h2 data-fade>Twenty years of sitting with people <em>through change</em></h2>
+      </div>
+      <div class="split">
+        <div data-fade>
+          <!-- SET UP: replace with a photograph, 4:5 portrait, ~1200 x 1500 -->
+          <div class="slot">
+            <p class="label">Image slot<br/>4 : 5 portrait</p>
+          </div>
+        </div>
+        <div>
+          <p data-fade style="color:var(--ink-mid)">
+            I have spent over twenty years supporting people through change —
+            across schools, colleges, universities, the NHS and the third sector.
+            I currently work as a Mental Health Specialist in a university setting.
+          </p>
+          <p data-fade data-d="1" style="color:var(--ink-mid)">
+            I trained at the University of East London on a BACP-accredited
+            Postgraduate Diploma in Integrative Counselling and Psychotherapy,
+            supported by a competitive scholarship, alongside a clinical placement
+            within NHS Talking Therapies. I am a Registered Member of the BACP,
+            working towards accreditation, and I practise under regular clinical
+            supervision.
+          </p>
+          <p class="label" data-fade data-d="2" style="margin:var(--s-3) 0 var(--s-2)">
+            Qualifications &amp; experience
+          </p>
+          <ul class="creds" data-fade data-d="2">
+            <li>BACP Registered Member</li>
+            <li>PGDip Integrative Counselling &amp; Psychotherapy</li>
+            <li>NHS Talking Therapies placement</li>
+            <li>University Mental Health Specialist</li>
+            <li>20+ years in education &amp; careers</li>
+            <li>Trauma-informed practice</li>
+            <li>Neurodiversity-affirming</li>
+            <li>Bereavement &amp; suicide-loss trained</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Statement ────────────────────────────────────── -->
+  <section class="statement">
+    <div class="wrap">
+      <p data-fade>
+        You do not need to arrive with the right words. You only need to start.
+      </p>
+    </div>
+  </section>
+
+  <!-- Process ──────────────────────────────────────── -->
+  <section class="band" id="process">
+    <div class="wrap">
+      <div class="head">
+        <p class="label" data-fade>No waiting list, no pressure</p>
+        <h2 data-fade>How it <em>works</em></h2>
+      </div>
+      <ul class="rows">
+        <li data-fade><span class="n">01</span><div><span class="t">You get in touch</span>
+          <p>Send an enquiry using the form below. I read every message myself and aim to respond within five working days.</p></div></li>
+        <li data-fade><span class="n">02</span><div><span class="t">A short initial conversation</span>
+          <p>A brief, free conversation to explore what you are looking for and whether I am the right person to support you. No obligation to continue.</p></div></li>
+        <li data-fade><span class="n">03</span><div><span class="t">Your first session</span>
+          <p>Fifty minutes, online by secure video. We start wherever feels manageable — you do not need to have prepared anything.</p></div></li>
+        <li data-fade><span class="n">04</span><div><span class="t">We agree how to work</span>
+          <p>Counselling is usually weekly or fortnightly. Career coaching can be more flexible. We agree what suits you and review it as we go.</p></div></li>
+        <li data-fade><span class="n">05</span><div><span class="t">We continue, at your pace</span>
+          <p>There is no fixed number of sessions. Some people come for short-term support around one issue; others prefer longer-term work.</p></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Practical ────────────────────────────────────── -->
+  <section class="band" id="practical">
+    <div class="wrap">
+      <div class="head">
+        <p class="label" data-fade>Practical things</p>
+        <h2 data-fade>Fees &amp; <em>sessions</em></h2>
+      </div>
+      <div class="split">
+        <div></div>
+        <dl class="facts">
+          <div data-fade>
+            <dt>£70</dt>
+            <dd>Per fifty-minute session, for both counselling and career coaching. Any reduced-fee arrangements are discussed openly where appropriate.</dd>
+          </div>
+          <div data-fade data-d="1">
+            <dt>Online</dt>
+            <dd>Sessions are held by secure video, across the UK — flexible and accessible, including for people who find it easier to talk from a familiar environment.</dd>
+          </div>
+          <div data-fade data-d="2">
+            <dt>No fixed end</dt>
+            <dd>Some people come for short-term support around a specific issue; others prefer longer-term work. We review things together regularly.</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- Enquiry ──────────────────────────────────────── -->
+  <section class="band-lg" id="enquiry">
+    <div class="wrap">
+      <div class="head">
+        <p class="label" data-fade>Reply within five working days</p>
+        <h2 data-fade>Make an <em>enquiry</em></h2>
+      </div>
+      <div class="split">
+        <div></div>
+        <div>
+          <p class="measure" data-fade style="color:var(--ink-mid); margin-bottom:var(--s-4)">
+            Taking the first step can feel daunting, especially if you are
+            already overwhelmed or unsure where to begin. You do not have to
+            explain everything in the first message — a sentence or two is enough.
+          </p>
+
+          <!-- SET UP: replace the action with a real endpoint (Formspree, Basin, Netlify) -->
+          <form class="form" id="form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" data-fade>
+            <div class="field">
+              <label class="label" for="n">Your name</label>
+              <input id="n" name="name" type="text" placeholder="First name is fine" required/>
+            </div>
+            <div class="field">
+              <label class="label" for="e">Email address</label>
+              <input id="e" name="email" type="email" placeholder="Where I can reply" required/>
+            </div>
+            <div class="field">
+              <label class="label" for="i">Enquiring about</label>
+              <select id="i" name="interest">
+                <option>Counselling</option>
+                <option>Career coaching</option>
+                <option>Not sure yet</option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="label" for="m">Anything you would like me to know</label>
+              <textarea id="m" name="message" placeholder="A sentence or two is enough."></textarea>
+            </div>
+            <label class="consent">
+              <input type="checkbox" name="consent" required/>
+              <span>I am happy for Catherine to hold my details in order to respond to this enquiry.</span>
+            </label>
+            <button class="ulink" type="submit">Send enquiry</button>
+            <p class="status" id="status" role="status" aria-live="polite"></p>
+          </form>
+
+          <aside class="safety" data-fade>
+            <strong>If you need support right now.</strong>
+            I am not able to offer crisis or emergency care. If you are in severe
+            distress, or having thoughts of harming yourself or someone else,
+            please contact your GP, call NHS 111, or call 999 in an emergency.
+            Samaritans are free, day or night, on <a href="tel:116123">116 123</a>.
+          </aside>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-cols">
+      <div>
+        <p class="label">Sections</p>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#working">Counselling &amp; coaching</a></li>
+          <li><a href="#principles">How I work</a></li>
+          <li><a href="#process">How it works</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="label">Practical</p>
+        <ul>
+          <li><a href="#practical">Fees &amp; sessions</a></li>
+          <li><a href="#reasons">Is this for you</a></li>
+          <li><a href="#enquiry">Make an enquiry</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="label">Professional body</p>
+        <ul>
+          <li><a href="https://www.bacp.co.uk/search/Register" target="_blank" rel="noopener">BACP Register</a></li>
+          <li><a href="https://www.bacp.co.uk/events-and-resources/ethics-and-standards/ethical-framework-for-the-counselling-professions/" target="_blank" rel="noopener">Ethical Framework</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="label">Sessions</p>
+        <ul>
+          <li>Online, UK-wide</li>
+          <li>Weekly or fortnightly</li>
+          <li>Fifty minutes</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span class="label">© 2026 Catherine Leachman · BACP Registered Member</span>
+      <span class="label">Privacy notice available on request</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var booted = false;
+
+  function boot(){
+    if (booted) return;
+    booted = true;
+    document.documentElement.classList.add("ready");
+
+    var nav = document.getElementById("nav");
+    var hero = document.querySelector(".hero");
+
+    function onScroll(){
+      var past = hero ? (window.scrollY > hero.offsetHeight - 80) : (window.scrollY > 40);
+      nav.setAttribute("data-solid", past ? "true" : "false");
+    }
+    var tick = false;
+    window.addEventListener("scroll", function(){
+      if (!tick){ tick = true; requestAnimationFrame(function(){ onScroll(); tick = false; }); }
+    }, { passive:true });
+    onScroll();
+
+    var items = [].slice.call(document.querySelectorAll("[data-fade]"));
+    if ("IntersectionObserver" in window){
+      var io = new IntersectionObserver(function(es){
+        es.forEach(function(e){
+          if (e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); }
+        });
+      }, { rootMargin:"0px 0px -10% 0px", threshold:0.05 });
+      items.forEach(function(el){ io.observe(el); });
+    } else {
+      items.forEach(function(el){ el.classList.add("in"); });
+    }
+
+    var form = document.getElementById("form");
+    if (form){
+      form.addEventListener("submit", function(e){
+        if (form.getAttribute("action").indexOf("YOUR_FORM_ID") !== -1){
+          e.preventDefault();
+          var s = document.getElementById("status");
+          s.textContent = "This form is not connected yet — add a form endpoint to enable sending.";
+          s.setAttribute("data-shown","true");
+        }
+      });
+    }
+  }
+
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(boot).catch(boot);
+  window.addEventListener("load", boot);
+  setTimeout(boot, 1200);
+  if (document.readyState === "complete") boot();
+})();
+</script>
+
+</body>
+</html>
