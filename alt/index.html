@@ -18,8 +18,13 @@
 /* ─────────────────────────────────────────────────────────
    Catherine Leachman — version two.
    Quiet studio register: bone ground, no accent colour,
-   wide-tracked uppercase navigation, staggered image pairs,
-   a great deal of air, and motion that only ever fades.
+   wide-tracked uppercase navigation, sticky photography,
+   and motion that only ever fades.
+
+   LAYOUT NOTE: everything sits on one grid — a narrow label
+   column and a wide content column. Sub-grids never nest
+   inside the content column at full width, which is what
+   caused the cramping in the first pass.
    ───────────────────────────────────────────────────────── */
 
 :root{
@@ -31,24 +36,28 @@
   --ink-soft:  #8E877D;
   --hair:      rgba(53,50,46,0.16);
 
-  --t-nav:    0.6875rem;
   --t-micro:  0.6875rem;
   --t-small:  0.875rem;
   --t-body:   clamp(0.98rem, 0.93rem + 0.22vw, 1.09rem);
   --t-lead:   clamp(1.15rem, 1rem + 0.7vw, 1.6rem);
-  --t-h3:     clamp(1.35rem, 1.15rem + 0.9vw, 2rem);
-  --t-h2:     clamp(1.9rem, 1.4rem + 2.2vw, 3.4rem);
-  --t-h1:     clamp(2.4rem, 1.5rem + 3.9vw, 5.4rem);
+  --t-h3:     clamp(1.3rem, 1.12rem + 0.8vw, 1.85rem);
+  --t-h2:     clamp(1.9rem, 1.4rem + 2.2vw, 3.3rem);
+  --t-h1:     clamp(2.2rem, 1.4rem + 3.2vw, 4.4rem);
 
   --s-1: 0.5rem;
   --s-2: clamp(0.9rem, 0.8rem + 0.5vw, 1.4rem);
   --s-3: clamp(1.6rem, 1.3rem + 1.4vw, 2.8rem);
-  --s-4: clamp(3rem, 2.2rem + 3.4vw, 6rem);
-  --s-5: clamp(5.5rem, 3.6rem + 8vw, 13rem);
-  --s-6: clamp(8rem, 5rem + 14vw, 22rem);
+  --s-4: clamp(2.6rem, 2rem + 2.6vw, 4.6rem);
+  /* Trimmed hard: these were the source of the random voids */
+  --s-5: clamp(4.5rem, 3.2rem + 5.2vw, 8.5rem);
+  --s-6: clamp(6rem, 4.2rem + 7vw, 11rem);
 
   --gutter: clamp(1.25rem, 0.5rem + 3.4vw, 5rem);
   --nav-h: 4.5rem;
+
+  /* The one grid the whole page uses */
+  --col-label: clamp(7rem, 5rem + 8vw, 13rem);
+  --col-gap:   clamp(1.75rem, 1rem + 4vw, 5.5rem);
 
   --slow: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -64,8 +73,7 @@ body{
   font-family:"Jost", ui-sans-serif, system-ui, sans-serif;
   font-size:var(--t-body);
   font-weight:300;
-  line-height:1.92;
-  letter-spacing:0.005em;
+  line-height:1.9;
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
 }
@@ -73,8 +81,7 @@ body{
 h1,h2,h3,h4{
   font-family:"Cormorant Garamond", Garamond, Georgia, serif;
   font-weight:300;
-  line-height:1.12;
-  letter-spacing:0.002em;
+  line-height:1.14;
   margin:0;
   text-wrap:balance;
 }
@@ -88,25 +95,21 @@ img{ display:block; max-width:100%; height:auto; }
 
 /* ── Shell ──────────────────────────────────────────── */
 
-.wrap{
-  width:min(100% - var(--gutter)*2, 82rem);
-  margin-inline:auto;
-}
+.wrap{ width:min(100% - var(--gutter)*2, 80rem); margin-inline:auto; }
 .band{ padding-block:var(--s-5); }
 .band-lg{ padding-block:var(--s-6); }
 section[id]{ scroll-margin-top:calc(var(--nav-h) + 1rem); }
 
-/* Wide-tracked uppercase label, used throughout */
 .label{
   font-size:var(--t-micro);
   letter-spacing:0.22em;
   text-transform:uppercase;
   font-weight:400;
   color:var(--ink-soft);
-  line-height:1.6;
+  line-height:1.7;
+  margin:0;
 }
 
-/* Underlined uppercase link — the only "button" in this design */
 .ulink{
   display:inline-block;
   font-size:var(--t-micro);
@@ -120,6 +123,44 @@ section[id]{ scroll-margin-top:calc(var(--nav-h) + 1rem); }
 .ulink:hover{ color:var(--ink-soft); border-color:var(--ink-soft); }
 
 .rule{ height:1px; background:var(--hair); border:0; margin:0; }
+.measure{ max-width:38ch; }
+.lead{
+  font-family:"Cormorant Garamond", Georgia, serif;
+  font-size:var(--t-lead);
+  line-height:1.45;
+  font-weight:300;
+}
+
+/* ── THE GRID ───────────────────────────────────────
+   Two tracks: a narrow label rail and the content column.
+   Every section uses this, so the left rail lines up all
+   the way down the page.                                */
+
+.g{
+  display:grid;
+  grid-template-columns:var(--col-label) minmax(0,1fr);
+  column-gap:var(--col-gap);
+  row-gap:var(--s-3);
+  align-items:start;
+}
+@media (max-width:820px){
+  .g{ grid-template-columns:1fr; row-gap:var(--s-2); }
+}
+.g > .rail{ grid-column:1; }
+.g > .body{ grid-column:2; }
+@media (max-width:820px){
+  .g > .rail, .g > .body{ grid-column:1; }
+}
+
+/* Two columns of prose INSIDE the content column.
+   Min track is small enough that it genuinely forms two
+   columns at desktop, and collapses cleanly below.       */
+.duo{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  column-gap:clamp(1.75rem, 1rem + 3.2vw, 4.5rem);
+  row-gap:var(--s-4);
+}
 
 /* ── Navigation ─────────────────────────────────────── */
 
@@ -128,8 +169,8 @@ section[id]{ scroll-margin-top:calc(var(--nav-h) + 1rem); }
   height:var(--nav-h);
   display:flex; align-items:center;
   background:rgba(239,237,233,0);
-  transition:background 0.8s var(--slow), border-color 0.8s var(--slow);
   border-bottom:1px solid transparent;
+  transition:background 0.8s var(--slow), border-color 0.8s var(--slow);
 }
 .nav[data-solid="true"]{
   background:rgba(239,237,233,0.94);
@@ -142,12 +183,11 @@ section[id]{ scroll-margin-top:calc(var(--nav-h) + 1rem); }
   grid-template-columns:1fr auto 1fr;
   align-items:center;
   gap:var(--s-2);
-  width:min(100% - var(--gutter)*2, 74rem);
 }
-.nav-side{ display:flex; gap:clamp(1.2rem,0.6rem+2.2vw,3.4rem); }
+.nav-side{ display:flex; gap:clamp(1.2rem,0.6rem+2.2vw,3.2rem); }
 .nav-side.right{ justify-content:flex-end; }
 .nav a.n{
-  font-size:var(--t-nav);
+  font-size:var(--t-micro);
   letter-spacing:0.2em;
   text-transform:uppercase;
   font-weight:400;
@@ -160,27 +200,27 @@ section[id]{ scroll-margin-top:calc(var(--nav-h) + 1rem); }
   font-family:"Cormorant Garamond", Georgia, serif;
   font-size:1.15rem;
   letter-spacing:0.06em;
-  color:var(--ink);
   white-space:nowrap;
 }
-/* Over the hero photograph the bar is invisible and the type is light */
 .nav:not([data-solid="true"]) a.n,
-.nav:not([data-solid="true"]) .nav-mark{ color:rgba(255,255,255,0.92); }
+.nav:not([data-solid="true"]) .nav-mark{ color:rgba(255,255,255,0.94); }
 
 @media (max-width:860px){
-  .nav .wrap{ grid-template-columns:1fr auto; }
+  .nav .wrap{ grid-template-columns:auto 1fr; }
   .nav-side.left{ display:none; }
-  .nav-side.right{ gap:1.1rem; }
+  .nav-mark{ justify-self:start; }
   .nav a.n[data-drop]{ display:none; }
 }
 
-/* ── Hero: full-bleed photograph ────────────────────── */
+/* ── Hero ───────────────────────────────────────────
+   Text sits LEFT, in the empty wall area of the photo;
+   Catherine stands right of centre and stays clear.     */
 
 .hero{
   position:relative;
-  min-height:min(94svh, 60rem);
-  display:grid;
-  place-items:center;
+  min-height:min(92svh, 56rem);
+  display:flex;
+  align-items:center;
   overflow:hidden;
   background:var(--bone-deep);
 }
@@ -188,174 +228,165 @@ section[id]{ scroll-margin-top:calc(var(--nav-h) + 1rem); }
   position:absolute; inset:0;
   width:100%; height:100%;
   object-fit:cover;
-  object-position:center 38%;
-  transform:scale(1.06);
+  object-position:68% 38%;
+  transform:scale(1.05);
   opacity:0;
   transition:transform 2.6s var(--slow), opacity 1.8s ease-out;
 }
 .ready .hero-img{ transform:scale(1); opacity:1; }
+/* Weighted left so white type stays legible over the pale wall */
 .hero::after{
   content:"";
   position:absolute; inset:0;
-  background:linear-gradient(180deg, rgba(40,36,32,0.36) 0%, rgba(40,36,32,0.06) 34%, rgba(40,36,32,0.22) 100%);
+  background:linear-gradient(96deg,
+    rgba(38,34,30,0.60) 0%,
+    rgba(38,34,30,0.44) 26%,
+    rgba(38,34,30,0.14) 52%,
+    rgba(38,34,30,0.04) 70%,
+    rgba(38,34,30,0.16) 100%);
 }
 .hero-inner{
   position:relative; z-index:2;
-  text-align:center;
+  width:min(100% - var(--gutter)*2, 80rem);
+  margin-inline:auto;
+  padding-top:var(--nav-h);
   color:#fff;
-  padding:var(--nav-h) var(--gutter) var(--s-4);
-  max-width:34rem;
 }
+.hero-copy{ max-width:min(100%, 30rem); }
 .hero h1{
   font-size:var(--t-h1);
-  font-weight:300;
-  line-height:1.06;
-  margin-bottom:var(--s-2);
-  text-shadow:0 1px 26px rgba(30,26,22,0.28);
+  line-height:1.08;
+  margin:var(--s-2) 0;
+  text-shadow:0 1px 30px rgba(30,26,22,0.3);
 }
 .hero h1 em{ font-style:italic; }
-.hero .label{ color:rgba(255,255,255,0.86); }
+.hero .label{ color:rgba(255,255,255,0.9); }
 .hero-cta{ margin-top:var(--s-3); }
-.hero-cta .ulink{ color:#fff; border-color:rgba(255,255,255,0.7); }
-.hero-cta .ulink:hover{ color:rgba(255,255,255,0.75); border-color:rgba(255,255,255,0.4); }
+.hero-cta .ulink{ color:#fff; border-color:rgba(255,255,255,0.75); }
+.hero-cta .ulink:hover{ color:rgba(255,255,255,0.78); border-color:rgba(255,255,255,0.45); }
 
-/* ── Text + staggered image pair ────────────────────── */
+@media (max-width:700px){
+  .hero-img{ object-position:66% 32%; }
+  .hero::after{
+    background:linear-gradient(180deg,
+      rgba(38,34,30,0.34) 0%, rgba(38,34,30,0.20) 40%, rgba(38,34,30,0.62) 100%);
+  }
+  .hero{ align-items:flex-end; }
+  .hero-inner{ padding-bottom:var(--s-4); }
+}
 
-.split{
+/* ── Sticky photography beside copy ─────────────────
+   The image holds position while the copy moves past,
+   then releases at the end of its section.              */
+
+.media{
   display:grid;
-  grid-template-columns:minmax(0,0.82fr) minmax(0,1.18fr);
-  gap:var(--s-4) clamp(2rem,1rem+5vw,7rem);
+  grid-template-columns:minmax(0,0.88fr) minmax(0,1.12fr);
+  column-gap:clamp(2rem, 1rem + 4.5vw, 6rem);
+  row-gap:var(--s-4);
   align-items:start;
 }
-@media (max-width:900px){ .split{ grid-template-columns:1fr; } }
+@media (max-width:900px){ .media{ grid-template-columns:1fr; } }
 
-/* Two photographs, offset and overlapping, as on a studio page */
-.stagger{ position:relative; padding-bottom:clamp(3rem,2rem+6vw,9rem); }
-.stagger .a{ width:64%; }
-.stagger .b{
-  width:58%;
-  position:absolute;
-  right:0;
-  top:clamp(2.5rem,1.5rem+5vw,7rem);
+.media-fig{
+  position:sticky;
+  top:calc(var(--nav-h) + 2rem);
+  margin:0;
 }
-.stagger img{ width:100%; }
-.stagger .a img{ aspect-ratio:3/4; object-fit:cover; object-position:80% center; }
-.stagger .b img{ aspect-ratio:4/3; object-fit:cover; }
-@media (max-width:620px){
-  .stagger{ padding-bottom:0; }
-  .stagger .a{ width:82%; }
-  .stagger .b{ position:static; width:82%; margin-left:auto; margin-top:var(--s-2); }
-}
+@media (max-width:900px){ .media-fig{ position:static; } }
+.media-fig img{ width:100%; }
+.media-fig figcaption{ margin-top:var(--s-1); }
 
-.measure{ max-width:38ch; }
-.lead{
-  font-family:"Cormorant Garamond", Georgia, serif;
-  font-size:var(--t-lead);
-  line-height:1.45;
-  font-weight:300;
-  color:var(--ink);
-}
+.fig-portrait img{ aspect-ratio:4/5; object-fit:cover; object-position:75% center; }
 
 /* ── Section headings ───────────────────────────────── */
 
-.head{
-  display:grid;
-  grid-template-columns:minmax(0,0.82fr) minmax(0,1.18fr);
-  gap:var(--s-2) clamp(2rem,1rem+5vw,7rem);
-  align-items:baseline;
-  margin-bottom:var(--s-4);
-}
-@media (max-width:900px){ .head{ grid-template-columns:1fr; } }
-.head h2{ font-size:var(--t-h2); max-width:18ch; }
+.head{ margin-bottom:var(--s-4); }
+.head h2{ font-size:var(--t-h2); max-width:18ch; margin-top:var(--s-1); }
 .head h2 em{ font-style:italic; }
 
-/* ── Quiet full-width statement ─────────────────────── */
+/* ── Quiet statement ────────────────────────────────── */
 
-.statement{
-  text-align:center;
-  padding-block:var(--s-6);
-}
+.statement{ padding-block:var(--s-6); text-align:center; }
 .statement p{
   font-family:"Cormorant Garamond", Georgia, serif;
-  font-size:clamp(1.5rem, 1.1rem + 2.1vw, 3.1rem);
+  font-size:clamp(1.45rem, 1.05rem + 2vw, 2.9rem);
   font-weight:300;
   font-style:italic;
-  line-height:1.32;
+  line-height:1.34;
   max-width:24ch;
   margin-inline:auto;
 }
 
-/* ── Lists ──────────────────────────────────────────── */
+/* ── Rows ───────────────────────────────────────────
+   Generous vertical padding and a real gap between the
+   marker and the text — both missing in the first pass. */
 
 .rows{ list-style:none; margin:0; padding:0; border-top:1px solid var(--hair); }
 .rows li{
   border-bottom:1px solid var(--hair);
-  padding-block:clamp(1.1rem,0.9rem+0.9vw,1.7rem);
+  padding-block:clamp(1.5rem, 1.2rem + 1.3vw, 2.5rem);
   display:grid;
-  grid-template-columns:minmax(0,0.82fr) minmax(0,1.18fr);
-  gap:0.5rem clamp(2rem,1rem+5vw,7rem);
+  grid-template-columns:minmax(5rem, 9rem) minmax(0,1fr);
+  column-gap:clamp(1.5rem, 1rem + 3vw, 4rem);
+  row-gap:var(--s-1);
   align-items:baseline;
 }
-@media (max-width:900px){ .rows li{ grid-template-columns:1fr; } }
-.rows .n{ font-size:var(--t-micro); letter-spacing:0.22em; color:var(--ink-soft); }
+@media (max-width:640px){
+  .rows li{ grid-template-columns:1fr; row-gap:0.6rem; }
+}
+.rows .n{ font-size:var(--t-micro); letter-spacing:0.22em; text-transform:uppercase; color:var(--ink-soft); }
 .rows .t{
   font-family:"Cormorant Garamond", Georgia, serif;
   font-size:var(--t-h3);
   font-weight:300;
   line-height:1.3;
-  max-width:30ch;
+  max-width:32ch;
+  display:block;
 }
-.rows p{ margin:0.5em 0 0; color:var(--ink-mid); font-size:var(--t-small); max-width:52ch; }
-
-/* ── Two columns of prose ───────────────────────────── */
-
-.cols{
-  display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(min(100%,20rem),1fr));
-  gap:var(--s-4) clamp(2rem,1rem+5vw,7rem);
-}
-.cols h3{ font-size:var(--t-h3); margin-bottom:var(--s-2); }
-.cols p{ color:var(--ink-mid); }
+.rows p{ margin:0.7em 0 0; color:var(--ink-mid); font-size:var(--t-small); max-width:56ch; line-height:1.75; }
 
 /* ── Facts ──────────────────────────────────────────── */
 
 .facts{
   display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(min(100%,15rem),1fr));
-  gap:var(--s-3) clamp(2rem,1rem+4vw,5rem);
+  grid-template-columns:repeat(auto-fit, minmax(min(100%,14rem),1fr));
+  column-gap:clamp(1.75rem, 1rem + 3.2vw, 4.5rem);
+  row-gap:var(--s-3);
   margin:0;
 }
 .facts dt{
   font-family:"Cormorant Garamond", Georgia, serif;
   font-size:var(--t-h3);
   font-weight:300;
-  padding-bottom:0.5em;
-  margin-bottom:0.7em;
+  padding-bottom:0.6em;
+  margin-bottom:0.85em;
   border-bottom:1px solid var(--hair);
 }
-.facts dd{ margin:0; color:var(--ink-mid); font-size:var(--t-small); }
+.facts dd{ margin:0; color:var(--ink-mid); font-size:var(--t-small); line-height:1.75; }
 
 /* ── Credentials ────────────────────────────────────── */
 
-.creds{ list-style:none; margin:0; padding:0; columns:2; column-gap:var(--s-3); }
-@media (max-width:620px){ .creds{ columns:1; } }
+.creds{
+  list-style:none; margin:0; padding:0;
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(min(100%,15rem),1fr));
+  column-gap:clamp(1.5rem,1rem+2.5vw,3.5rem);
+}
 .creds li{
-  break-inside:avoid;
   font-size:var(--t-small);
   color:var(--ink-mid);
-  padding-block:0.55em;
+  padding-block:0.7em;
   border-bottom:1px solid var(--hair);
 }
 
-/* ── Image slot still to fill ───────────────────────── */
+/* ── Image slot ─────────────────────────────────────── */
 
 .slot{
   aspect-ratio:4/5;
   background:var(--bone-warm);
   border:1px solid var(--hair);
-  display:grid;
-  place-items:center;
-  text-align:center;
+  display:grid; place-items:center; text-align:center;
   padding:var(--s-2);
 }
 
@@ -363,27 +394,21 @@ section[id]{ scroll-margin-top:calc(var(--nav-h) + 1rem); }
 
 .form{ max-width:34rem; }
 .field{ margin-bottom:var(--s-3); }
-.field label{ display:block; margin-bottom:0.7em; }
+.field label{ display:block; margin-bottom:0.8em; }
 .field input,.field textarea,.field select{
-  width:100%;
-  font:inherit; font-size:var(--t-body);
-  color:var(--ink);
-  background:transparent;
-  border:0; border-bottom:1px solid var(--hair);
-  border-radius:0;
-  padding:0.65em 0;
-  appearance:none;
+  width:100%; font:inherit; font-size:var(--t-body);
+  color:var(--ink); background:transparent;
+  border:0; border-bottom:1px solid var(--hair); border-radius:0;
+  padding:0.7em 0; appearance:none;
   transition:border-color 0.6s var(--slow);
 }
 .field textarea{ min-height:7em; resize:vertical; line-height:1.7; }
-.field input:focus,.field textarea:focus,.field select:focus{
-  outline:none; border-bottom-color:var(--ink);
-}
+.field input:focus,.field textarea:focus,.field select:focus{ outline:none; border-bottom-color:var(--ink); }
 .field ::placeholder{ color:var(--ink-soft); }
 .consent{
-  display:flex; gap:0.8em; align-items:flex-start;
+  display:flex; gap:0.85em; align-items:flex-start;
   font-size:var(--t-small); color:var(--ink-mid);
-  margin-bottom:var(--s-3); cursor:pointer; line-height:1.6;
+  margin-bottom:var(--s-3); cursor:pointer; line-height:1.65;
 }
 .consent input{ width:0.95em; height:0.95em; margin-top:0.5em; flex:0 0 auto; accent-color:var(--ink); }
 button.ulink{ background:none; border:0; border-bottom:1px solid var(--ink); font-family:inherit; cursor:pointer; padding:0 0 0.45em; }
@@ -391,29 +416,25 @@ button.ulink{ background:none; border:0; border-bottom:1px solid var(--ink); fon
 .status[data-shown="true"]{ opacity:1; }
 
 .safety{
-  margin-top:var(--s-4);
-  padding-top:var(--s-2);
+  margin-top:var(--s-4); padding-top:var(--s-2);
   border-top:1px solid var(--hair);
-  font-size:var(--t-small);
-  color:var(--ink-mid);
-  max-width:44ch;
+  font-size:var(--t-small); color:var(--ink-mid);
+  max-width:46ch; line-height:1.75;
 }
 .safety strong{ color:var(--ink); font-weight:400; }
 .safety a{ border-bottom:1px solid var(--hair); }
 
 /* ── Footer ─────────────────────────────────────────── */
 
-.foot{
-  padding-block:var(--s-4) var(--s-3);
-  border-top:1px solid var(--hair);
-}
+.foot{ padding-block:var(--s-4) var(--s-3); border-top:1px solid var(--hair); }
 .foot-cols{
   display:grid;
   grid-template-columns:repeat(auto-fit, minmax(min(100%,11rem),1fr));
-  gap:var(--s-3);
+  column-gap:var(--col-gap);
+  row-gap:var(--s-3);
   margin-bottom:var(--s-4);
 }
-.foot ul{ list-style:none; margin:0.9em 0 0; padding:0; display:grid; gap:0.6em; }
+.foot ul{ list-style:none; margin:1em 0 0; padding:0; display:grid; gap:0.7em; }
 .foot li{ font-size:var(--t-small); color:var(--ink-mid); }
 .foot a:hover{ color:var(--ink); }
 .foot-base{
@@ -421,17 +442,16 @@ button.ulink{ background:none; border:0; border-bottom:1px solid var(--ink); fon
   padding-top:var(--s-2); border-top:1px solid var(--hair);
 }
 
-/* ── Motion: fades only, slow ───────────────────────── */
+/* ── Motion ─────────────────────────────────────────── */
 
 [data-fade]{
-  opacity:0;
-  transform:translateY(1.1rem);
-  transition:opacity 1.5s var(--slow), transform 1.6s var(--slow);
+  opacity:0; transform:translateY(1.1rem);
+  transition:opacity 1.4s var(--slow), transform 1.5s var(--slow);
 }
 [data-fade].in{ opacity:1; transform:none; }
-[data-fade][data-d="1"]{ transition-delay:0.14s; }
-[data-fade][data-d="2"]{ transition-delay:0.28s; }
-[data-fade][data-d="3"]{ transition-delay:0.42s; }
+[data-fade][data-d="1"]{ transition-delay:0.13s; }
+[data-fade][data-d="2"]{ transition-delay:0.26s; }
+[data-fade][data-d="3"]{ transition-delay:0.39s; }
 
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{
@@ -441,6 +461,7 @@ button.ulink{ background:none; border:0; border-bottom:1px solid var(--ink); fon
   }
   [data-fade]{ opacity:1 !important; transform:none !important; }
   .hero-img{ opacity:1 !important; transform:none !important; }
+  .media-fig{ position:static !important; }
 }
 </style>
 </head>
@@ -464,28 +485,28 @@ button.ulink{ background:none; border:0; border-bottom:1px solid var(--ink); fon
 
 <main id="top">
 
-  <!-- Hero ─────────────────────────────────────────── -->
+  <!-- Hero — copy left, Catherine right ───────────── -->
   <header class="hero">
     <img class="hero-img" src="../catherine-leachman-1.jpeg"
          alt="Catherine Leachman in the room where she works"/>
     <div class="hero-inner">
-      <p class="label" data-fade>Counselling · Psychotherapy · Career coaching</p>
-      <h1 data-fade data-d="1">Somewhere to think when life feels <em>heavy or unclear</em></h1>
-      <p class="label" data-fade data-d="2">Online, across the United Kingdom</p>
-      <div class="hero-cta" data-fade data-d="3">
-        <a class="ulink" href="#enquiry">Make an enquiry</a>
+      <div class="hero-copy">
+        <p class="label" data-fade>Counselling · Psychotherapy · Career coaching</p>
+        <h1 data-fade data-d="1">Somewhere to think when life feels <em>heavy or unclear</em></h1>
+        <p class="label" data-fade data-d="2">Online, across the United Kingdom</p>
+        <div class="hero-cta" data-fade data-d="3">
+          <a class="ulink" href="#enquiry">Make an enquiry</a>
+        </div>
       </div>
     </div>
   </header>
 
-  <!-- Intro + staggered pair ───────────────────────── -->
+  <!-- Where the work begins ────────────────────────── -->
   <section class="band" id="intro">
-    <div class="wrap split">
-      <div>
-        <p class="label" data-fade>Where the work begins</p>
-      </div>
-      <div>
-        <p class="lead" data-fade style="margin-bottom:var(--s-3)">
+    <div class="wrap g">
+      <p class="label rail" data-fade>Where the work begins</p>
+      <div class="body">
+        <p class="lead" data-fade style="max-width:32ch; margin-bottom:var(--s-3)">
           You have been managing for a while now. From the outside it probably
           looks fine — work gets done, people get looked after. But something
           underneath has been quietly asking for attention.
@@ -500,100 +521,81 @@ button.ulink{ background:none; border:0; border-bottom:1px solid var(--ink); fon
         </p>
       </div>
     </div>
-
-    <div class="wrap split" style="margin-top:var(--s-5)">
-      <div></div>
-      <div class="stagger">
-        <figure class="a" data-fade style="margin:0">
-          <img src="../catherine-leachman-2.jpeg" alt="Catherine Leachman"/>
-        </figure>
-        <figure class="b" data-fade data-d="2" style="margin:0">
-          <img src="../catherine-leachman-1.jpeg" alt="The room where sessions are held"/>
-        </figure>
-      </div>
-    </div>
   </section>
 
   <!-- Statement ────────────────────────────────────── -->
   <section class="statement">
     <div class="wrap">
-      <p data-fade>
-        Coping, managing and getting through are not the same as feeling well.
-      </p>
+      <p data-fade>Coping, managing and getting through are not the same as feeling well.</p>
     </div>
   </section>
 
-  <!-- How it feels ─────────────────────────────────── -->
-  <section class="band" id="feeling">
+  <!-- Reasons — sticky portrait beside the list ────── -->
+  <section class="band" id="reasons">
     <div class="wrap">
-      <div class="head">
-        <p class="label" data-fade>How things feel now</p>
-        <h2 data-fade>When getting through the day <em>takes everything</em></h2>
+      <div class="head g">
+        <p class="label rail" data-fade>Reasons people get in touch</p>
+        <div class="body">
+          <h2 data-fade>You might recognise <em>some of this</em></h2>
+        </div>
       </div>
-      <div class="split">
-        <div></div>
-        <div class="cols">
-          <div data-fade>
-            <p>You are functioning. You get up, you do what needs doing, you keep
-              other people going.</p>
-            <p>But the effort it takes has quietly gone up. Sleep is thinner.
-              Patience is shorter. Things that used to feel manageable now feel
-              like a lot.</p>
-          </div>
-          <div data-fade data-d="1">
-            <p class="lead">None of that means something is wrong with you.
-              Usually it means something has been carried alone for too long.</p>
-          </div>
+
+      <div class="media">
+        <figure class="media-fig fig-portrait" data-fade>
+          <img src="../catherine-leachman-2.jpeg" alt="Catherine Leachman"/>
+          <figcaption class="label">Catherine Leachman · BACP Registered Member</figcaption>
+        </figure>
+
+        <div>
+          <ul class="rows" style="border-top:0">
+            <li data-fade><span class="n">I</span><span class="t">Anxiety that hums in the background, or arrives without warning</span></li>
+            <li data-fade><span class="n">II</span><span class="t">Low mood, flatness, or a sense that things have lost their colour</span></li>
+            <li data-fade><span class="n">III</span><span class="t">Stress and burnout from work or study that rest no longer seems to fix</span></li>
+            <li data-fade><span class="n">IV</span><span class="t">Grief and loss, including sudden or traumatic bereavement</span></li>
+            <li data-fade><span class="n">V</span><span class="t">A transition — a diagnosis, a change of direction, a loss of confidence — that needs room to be understood</span></li>
+          </ul>
+          <p class="measure" data-fade style="margin-top:var(--s-3); color:var(--ink-mid)">
+            You are functioning. You get up, you do what needs doing, you keep
+            other people going. But the effort it takes has quietly gone up.
+            Sleep is thinner. Patience is shorter. Things that used to feel
+            manageable now feel like a lot.
+          </p>
+          <p class="lead" data-fade style="margin-top:var(--s-3); max-width:30ch">
+            None of that means something is wrong with you. Usually it means
+            something has been carried alone for too long.
+          </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Reasons ──────────────────────────────────────── -->
-  <section class="band" id="reasons">
-    <div class="wrap">
-      <div class="head">
-        <p class="label" data-fade>Reasons people get in touch</p>
-        <h2 data-fade>You might recognise <em>some of this</em></h2>
-      </div>
-      <ul class="rows">
-        <li data-fade><span class="n">I</span><span class="t">Anxiety that hums in the background, or arrives without warning</span></li>
-        <li data-fade><span class="n">II</span><span class="t">Low mood, flatness, or a sense that things have lost their colour</span></li>
-        <li data-fade><span class="n">III</span><span class="t">Stress and burnout from work or study that rest no longer seems to fix</span></li>
-        <li data-fade><span class="n">IV</span><span class="t">Grief and loss, including sudden or traumatic bereavement</span></li>
-        <li data-fade><span class="n">V</span><span class="t">A transition — a diagnosis, a change of direction, a loss of confidence — that needs room to be understood</span></li>
-      </ul>
-    </div>
-  </section>
-
   <!-- Working together ─────────────────────────────── -->
   <section class="band" id="working">
-    <div class="wrap">
-      <div class="head">
-        <p class="label" data-fade>Two kinds of support</p>
-        <h2 data-fade>Counselling &amp; <em>career coaching</em></h2>
-      </div>
-      <div class="split">
-        <div></div>
-        <div class="cols">
+    <div class="wrap g">
+      <p class="label rail" data-fade>Two kinds of support</p>
+      <div class="body">
+        <div class="head">
+          <h2 data-fade>Counselling &amp; <em>career coaching</em></h2>
+        </div>
+        <div class="duo">
           <div data-fade>
             <p class="label" style="margin-bottom:var(--s-2)">Counselling</p>
-            <h3 style="margin-bottom:var(--s-2)">A space to explore how you feel</h3>
-            <p>Confidential, at a pace that suits you. Integrative and
+            <h3 style="font-size:var(--t-h3); margin-bottom:var(--s-2)">A space to explore how you feel</h3>
+            <p style="color:var(--ink-mid)">Confidential, at a pace that suits you. Integrative and
               trauma-informed, drawing on person-centred, CBT-informed and
               solution-focused approaches — adapted to you rather than fitted to
               a rigid model.</p>
-            <p>It can help with anxiety and low mood, stress and burnout, grief
-              and bereavement, confidence and self-esteem, life transitions, and
-              neurodivergent identity.</p>
+            <p style="color:var(--ink-mid)">It can help with anxiety and low mood, stress and burnout,
+              grief and bereavement, confidence and self-esteem, life transitions,
+              and neurodivergent identity.</p>
           </div>
           <div data-fade data-d="1">
             <p class="label" style="margin-bottom:var(--s-2)">Career coaching</p>
-            <h3 style="margin-bottom:var(--s-2)">Structured and forward-facing</h3>
-            <p>For navigating a change of direction, a loss of confidence at
-              work, a return after illness, or questions about purpose and next
-              steps.</p>
-            <p>It is psychologically informed, because of my background in
+            <h3 style="font-size:var(--t-h3); margin-bottom:var(--s-2)">Structured and forward-facing</h3>
+            <p style="color:var(--ink-mid)">For navigating a change of direction, a loss of confidence
+              at work, a return after illness, or questions about purpose and
+              next steps.</p>
+            <p style="color:var(--ink-mid)">It is psychologically informed, because of my background in
               mental health — but it is not therapy, and it does not involve the
               treatment of mental health conditions.</p>
           </div>
@@ -606,66 +608,69 @@ button.ulink{ background:none; border:0; border-bottom:1px solid var(--ink); fon
 
   <!-- How I work ───────────────────────────────────── -->
   <section class="band" id="principles">
-    <div class="wrap">
-      <div class="head">
-        <p class="label" data-fade>What to expect</p>
-        <h2 data-fade>How I <em>work</em></h2>
+    <div class="wrap g">
+      <p class="label rail" data-fade>What to expect</p>
+      <div class="body">
+        <div class="head"><h2 data-fade>How I <em>work</em></h2></div>
+        <ul class="rows">
+          <li data-fade>
+            <span class="n">Confidentiality</span>
+            <div>
+              <span class="t">What you bring to sessions stays between us</span>
+              <p>I keep brief, secure notes in line with professional and legal
+                requirements, and your information is not shared without your
+                consent — except in the rare circumstances where there is a
+                serious concern about safety. A full privacy notice is available
+                on request.</p>
+            </div>
+          </li>
+          <li data-fade>
+            <span class="n">Collaboration</span>
+            <div>
+              <span class="t">We decide together how the work goes</span>
+              <p>There is no fixed number of sessions, and we review things
+                together as we go. I adapt the approach to you rather than
+                applying one model to everybody.</p>
+            </div>
+          </li>
+          <li data-fade>
+            <span class="n">Ethics</span>
+            <div>
+              <span class="t">BACP framework, and regular supervision</span>
+              <p>I work under regular clinical supervision, where I reflect on my
+                practice to make sure it stays safe and ethical. Clients are never
+                identifiable. If another form of support would serve you better,
+                I will say so and help with signposting.</p>
+            </div>
+          </li>
+        </ul>
       </div>
-      <ul class="rows">
-        <li data-fade>
-          <span class="n">Confidentiality</span>
-          <div>
-            <span class="t">What you bring to sessions stays between us</span>
-            <p>I keep brief, secure notes in line with professional and legal
-              requirements, and your information is not shared without your
-              consent — except in the rare circumstances where there is a serious
-              concern about safety. A full privacy notice is available on request.</p>
-          </div>
-        </li>
-        <li data-fade>
-          <span class="n">Collaboration</span>
-          <div>
-            <span class="t">We decide together how the work goes</span>
-            <p>There is no fixed number of sessions, and we review things
-              together as we go. I adapt the approach to you rather than applying
-              one model to everybody.</p>
-          </div>
-        </li>
-        <li data-fade>
-          <span class="n">Ethics</span>
-          <div>
-            <span class="t">BACP framework, and regular supervision</span>
-            <p>I work under regular clinical supervision, where I reflect on my
-              practice to make sure it stays safe and ethical. Clients are never
-              identifiable. If another form of support would serve you better, I
-              will say so and help with signposting.</p>
-          </div>
-        </li>
-      </ul>
     </div>
   </section>
 
-  <!-- About ────────────────────────────────────────── -->
+  <!-- About — sticky image beside the copy ─────────── -->
   <section class="band" id="about">
     <div class="wrap">
-      <div class="head">
-        <p class="label" data-fade>About Catherine</p>
-        <h2 data-fade>Twenty years of sitting with people <em>through change</em></h2>
-      </div>
-      <div class="split">
-        <div data-fade>
-          <!-- SET UP: replace with a photograph, 4:5 portrait, ~1200 x 1500 -->
-          <div class="slot">
-            <p class="label">Image slot<br/>4 : 5 portrait</p>
-          </div>
+      <div class="head g">
+        <p class="label rail" data-fade>About Catherine</p>
+        <div class="body">
+          <h2 data-fade>Twenty years of sitting with people <em>through change</em></h2>
         </div>
+      </div>
+
+      <div class="media">
+        <figure class="media-fig" data-fade>
+          <!-- SET UP: replace with a photograph, 4:5 portrait, ~1200 x 1500 -->
+          <div class="slot"><p class="label">Image slot<br/>4 : 5 portrait</p></div>
+        </figure>
+
         <div>
-          <p data-fade style="color:var(--ink-mid)">
+          <p data-fade style="color:var(--ink-mid); max-width:52ch">
             I have spent over twenty years supporting people through change —
             across schools, colleges, universities, the NHS and the third sector.
             I currently work as a Mental Health Specialist in a university setting.
           </p>
-          <p data-fade data-d="1" style="color:var(--ink-mid)">
+          <p data-fade data-d="1" style="color:var(--ink-mid); max-width:52ch">
             I trained at the University of East London on a BACP-accredited
             Postgraduate Diploma in Integrative Counselling and Psychotherapy,
             supported by a competitive scholarship, alongside a clinical placement
@@ -673,7 +678,7 @@ button.ulink{ background:none; border:0; border-bottom:1px solid var(--ink); fon
             working towards accreditation, and I practise under regular clinical
             supervision.
           </p>
-          <p class="label" data-fade data-d="2" style="margin:var(--s-3) 0 var(--s-2)">
+          <p class="label" data-fade data-d="2" style="margin:var(--s-4) 0 var(--s-2)">
             Qualifications &amp; experience
           </p>
           <ul class="creds" data-fade data-d="2">
@@ -694,43 +699,38 @@ button.ulink{ background:none; border:0; border-bottom:1px solid var(--ink); fon
   <!-- Statement ────────────────────────────────────── -->
   <section class="statement">
     <div class="wrap">
-      <p data-fade>
-        You do not need to arrive with the right words. You only need to start.
-      </p>
+      <p data-fade>You do not need to arrive with the right words. You only need to start.</p>
     </div>
   </section>
 
   <!-- Process ──────────────────────────────────────── -->
   <section class="band" id="process">
-    <div class="wrap">
-      <div class="head">
-        <p class="label" data-fade>No waiting list, no pressure</p>
-        <h2 data-fade>How it <em>works</em></h2>
+    <div class="wrap g">
+      <p class="label rail" data-fade>No waiting list, no pressure</p>
+      <div class="body">
+        <div class="head"><h2 data-fade>How it <em>works</em></h2></div>
+        <ul class="rows">
+          <li data-fade><span class="n">01</span><div><span class="t">You get in touch</span>
+            <p>Send an enquiry using the form below. I read every message myself and aim to respond within five working days.</p></div></li>
+          <li data-fade><span class="n">02</span><div><span class="t">A short initial conversation</span>
+            <p>A brief, free conversation to explore what you are looking for and whether I am the right person to support you. No obligation to continue.</p></div></li>
+          <li data-fade><span class="n">03</span><div><span class="t">Your first session</span>
+            <p>Fifty minutes, online by secure video. We start wherever feels manageable — you do not need to have prepared anything.</p></div></li>
+          <li data-fade><span class="n">04</span><div><span class="t">We agree how to work</span>
+            <p>Counselling is usually weekly or fortnightly. Career coaching can be more flexible. We agree what suits you and review it as we go.</p></div></li>
+          <li data-fade><span class="n">05</span><div><span class="t">We continue, at your pace</span>
+            <p>There is no fixed number of sessions. Some people come for short-term support around one issue; others prefer longer-term work.</p></div></li>
+        </ul>
       </div>
-      <ul class="rows">
-        <li data-fade><span class="n">01</span><div><span class="t">You get in touch</span>
-          <p>Send an enquiry using the form below. I read every message myself and aim to respond within five working days.</p></div></li>
-        <li data-fade><span class="n">02</span><div><span class="t">A short initial conversation</span>
-          <p>A brief, free conversation to explore what you are looking for and whether I am the right person to support you. No obligation to continue.</p></div></li>
-        <li data-fade><span class="n">03</span><div><span class="t">Your first session</span>
-          <p>Fifty minutes, online by secure video. We start wherever feels manageable — you do not need to have prepared anything.</p></div></li>
-        <li data-fade><span class="n">04</span><div><span class="t">We agree how to work</span>
-          <p>Counselling is usually weekly or fortnightly. Career coaching can be more flexible. We agree what suits you and review it as we go.</p></div></li>
-        <li data-fade><span class="n">05</span><div><span class="t">We continue, at your pace</span>
-          <p>There is no fixed number of sessions. Some people come for short-term support around one issue; others prefer longer-term work.</p></div></li>
-      </ul>
     </div>
   </section>
 
   <!-- Practical ────────────────────────────────────── -->
   <section class="band" id="practical">
-    <div class="wrap">
-      <div class="head">
-        <p class="label" data-fade>Practical things</p>
-        <h2 data-fade>Fees &amp; <em>sessions</em></h2>
-      </div>
-      <div class="split">
-        <div></div>
+    <div class="wrap g">
+      <p class="label rail" data-fade>Practical things</p>
+      <div class="body">
+        <div class="head"><h2 data-fade>Fees &amp; <em>sessions</em></h2></div>
         <dl class="facts">
           <div data-fade>
             <dt>£70</dt>
@@ -751,58 +751,53 @@ button.ulink{ background:none; border:0; border-bottom:1px solid var(--ink); fon
 
   <!-- Enquiry ──────────────────────────────────────── -->
   <section class="band-lg" id="enquiry">
-    <div class="wrap">
-      <div class="head">
-        <p class="label" data-fade>Reply within five working days</p>
-        <h2 data-fade>Make an <em>enquiry</em></h2>
-      </div>
-      <div class="split">
-        <div></div>
-        <div>
-          <p class="measure" data-fade style="color:var(--ink-mid); margin-bottom:var(--s-4)">
-            Taking the first step can feel daunting, especially if you are
-            already overwhelmed or unsure where to begin. You do not have to
-            explain everything in the first message — a sentence or two is enough.
-          </p>
+    <div class="wrap g">
+      <p class="label rail" data-fade>Reply within five working days</p>
+      <div class="body">
+        <div class="head"><h2 data-fade>Make an <em>enquiry</em></h2></div>
+        <p class="measure" data-fade style="color:var(--ink-mid); margin-bottom:var(--s-4)">
+          Taking the first step can feel daunting, especially if you are already
+          overwhelmed or unsure where to begin. You do not have to explain
+          everything in the first message — a sentence or two is enough.
+        </p>
 
-          <!-- SET UP: replace the action with a real endpoint (Formspree, Basin, Netlify) -->
-          <form class="form" id="form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" data-fade>
-            <div class="field">
-              <label class="label" for="n">Your name</label>
-              <input id="n" name="name" type="text" placeholder="First name is fine" required/>
-            </div>
-            <div class="field">
-              <label class="label" for="e">Email address</label>
-              <input id="e" name="email" type="email" placeholder="Where I can reply" required/>
-            </div>
-            <div class="field">
-              <label class="label" for="i">Enquiring about</label>
-              <select id="i" name="interest">
-                <option>Counselling</option>
-                <option>Career coaching</option>
-                <option>Not sure yet</option>
-              </select>
-            </div>
-            <div class="field">
-              <label class="label" for="m">Anything you would like me to know</label>
-              <textarea id="m" name="message" placeholder="A sentence or two is enough."></textarea>
-            </div>
-            <label class="consent">
-              <input type="checkbox" name="consent" required/>
-              <span>I am happy for Catherine to hold my details in order to respond to this enquiry.</span>
-            </label>
-            <button class="ulink" type="submit">Send enquiry</button>
-            <p class="status" id="status" role="status" aria-live="polite"></p>
-          </form>
+        <!-- SET UP: replace the action with a real endpoint (Formspree, Basin, Netlify) -->
+        <form class="form" id="form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" data-fade>
+          <div class="field">
+            <label class="label" for="n">Your name</label>
+            <input id="n" name="name" type="text" placeholder="First name is fine" required/>
+          </div>
+          <div class="field">
+            <label class="label" for="e">Email address</label>
+            <input id="e" name="email" type="email" placeholder="Where I can reply" required/>
+          </div>
+          <div class="field">
+            <label class="label" for="i">Enquiring about</label>
+            <select id="i" name="interest">
+              <option>Counselling</option>
+              <option>Career coaching</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="label" for="m">Anything you would like me to know</label>
+            <textarea id="m" name="message" placeholder="A sentence or two is enough."></textarea>
+          </div>
+          <label class="consent">
+            <input type="checkbox" name="consent" required/>
+            <span>I am happy for Catherine to hold my details in order to respond to this enquiry.</span>
+          </label>
+          <button class="ulink" type="submit">Send enquiry</button>
+          <p class="status" id="status" role="status" aria-live="polite"></p>
+        </form>
 
-          <aside class="safety" data-fade>
-            <strong>If you need support right now.</strong>
-            I am not able to offer crisis or emergency care. If you are in severe
-            distress, or having thoughts of harming yourself or someone else,
-            please contact your GP, call NHS 111, or call 999 in an emergency.
-            Samaritans are free, day or night, on <a href="tel:116123">116 123</a>.
-          </aside>
-        </div>
+        <aside class="safety" data-fade>
+          <strong>If you need support right now.</strong>
+          I am not able to offer crisis or emergency care. If you are in severe
+          distress, or having thoughts of harming yourself or someone else,
+          please contact your GP, call NHS 111, or call 999 in an emergency.
+          Samaritans are free, day or night, on <a href="tel:116123">116 123</a>.
+        </aside>
       </div>
     </div>
   </section>
@@ -866,13 +861,14 @@ button.ulink{ background:none; border:0; border-bottom:1px solid var(--ink); fon
     var hero = document.querySelector(".hero");
 
     function onScroll(){
-      var past = hero ? (window.scrollY > hero.offsetHeight - 80) : (window.scrollY > 40);
+      var past = hero ? (window.scrollY > hero.offsetHeight - 90) : (window.scrollY > 40);
       nav.setAttribute("data-solid", past ? "true" : "false");
     }
     var tick = false;
     window.addEventListener("scroll", function(){
       if (!tick){ tick = true; requestAnimationFrame(function(){ onScroll(); tick = false; }); }
     }, { passive:true });
+    window.addEventListener("resize", onScroll, { passive:true });
     onScroll();
 
     var items = [].slice.call(document.querySelectorAll("[data-fade]"));
