@@ -3,14 +3,22 @@
 Single-page site. One self-contained `index.html`: no build step, no
 framework, no dependencies beyond Google Fonts.
 
-Live: https://corisleachman.github.io/cat/
+Live (Vercel, serves the `alt/` design at the root): https://catherine-leachman.vercel.app
+Older GitHub Pages copy: https://corisleachman.github.io/cat/
+
+## Hosting and the enquiry form
+
+- Vercel project `catherine-leachman` deploys automatically on every push to `main`.
+  `vercel.json` builds `public/` from `alt/index.html` plus the images.
+- The form posts to `api/contact.js`, which emails enquiries to
+  catherineleachmanwellness@gmail.com via Resend (sender: enquiries@corisleachman.com,
+  reply-to: the enquirer). It needs `RESEND_API_KEY` set in Vercel; `CONTACT_TO` and
+  `CONTACT_FROM` env vars can override the recipient and sender.
 
 ## Still to do
 
-1. **Connect the enquiry form.** In `index.html`, find
-   `action="https://formspree.io/f/YOUR_FORM_ID"` and replace it with a real
-   endpoint (Formspree, Basin, or Netlify Forms). Until then the form shows a
-   message on submit instead of failing silently.
+1. **Enquiry form on the original `index.html`** still points at a placeholder;
+   the live (alt) design is wired up. Point it at `/api/contact` if it is ever used.
 
 2. **Replace the two image placeholders.** Search for `class="slot"`. Each one
    is captioned with the ratio and pixel size it expects:
