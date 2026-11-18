@@ -60,6 +60,31 @@
       if (store.get("done:" + el.getAttribute("data-mod")) === "1"){ el.textContent = "Finished ✓"; el.setAttribute("data-done","true"); }
     });
 
+    // Module carousel
+    [].forEach.call(document.querySelectorAll(".carousel"), function(c){
+      var track = c.querySelector(".track"), slides = track.children;
+      var prev = c.querySelector(".prev"), next = c.querySelector(".next");
+      var count = c.querySelector(".car-count"), dots = c.querySelectorAll(".dot");
+      function current(){ return Math.round(track.scrollLeft / track.clientWidth); }
+      function go(i){ i = Math.max(0, Math.min(slides.length - 1, i)); track.scrollTo({ left: i * track.clientWidth, behavior: "smooth" }); }
+      function paint(){
+        var i = current();
+        prev.disabled = i <= 0; next.disabled = i >= slides.length - 1;
+        count.textContent = (i + 1) + " / " + slides.length;
+        [].forEach.call(dots, function(d, k){ d.setAttribute("aria-current", k === i ? "true" : "false"); });
+      }
+      prev.addEventListener("click", function(){ go(current() - 1); });
+      next.addEventListener("click", function(){ go(current() + 1); });
+      [].forEach.call(dots, function(d){ d.addEventListener("click", function(){ go(+d.getAttribute("data-go")); }); });
+      track.addEventListener("keydown", function(e){
+        if (e.key === "ArrowRight"){ e.preventDefault(); go(current() + 1); }
+        if (e.key === "ArrowLeft"){ e.preventDefault(); go(current() - 1); }
+      });
+      var t; track.addEventListener("scroll", function(){ clearTimeout(t); t = setTimeout(paint, 60); }, { passive:true });
+      window.addEventListener("resize", paint, { passive:true });
+      paint();
+    });
+
     // Hide the floating "Buy" button while the buy section itself is on screen
     var fab = document.getElementById("buy"), join = document.getElementById("join");
     if (fab && join && "IntersectionObserver" in window){

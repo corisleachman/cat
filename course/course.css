@@ -586,3 +586,49 @@ button.ulink{ background:none; border:0; border-bottom:1px solid var(--ink); fon
   .hero-course .hero-cta{ display:none; }
   .hero-course .hero-inner{ padding-bottom:calc(var(--s-4) + 4rem); }
 }
+
+/* Module carousel */
+.carousel{ position:relative; }
+.track{
+  display:grid; grid-auto-flow:column; grid-auto-columns:100%;
+  overflow-x:auto; scroll-snap-type:x mandatory; scroll-behavior:smooth;
+  scrollbar-width:none; -webkit-overflow-scrolling:touch;
+  border-top:1px solid var(--hair); border-bottom:1px solid var(--hair);
+  outline:none;
+}
+.track::-webkit-scrollbar{ display:none; }
+.slide{ scroll-snap-align:start; padding:var(--s-4) 0 var(--s-3); min-width:0; }
+.slide h3{ font-size:var(--t-h2); margin:var(--s-1) 0 var(--s-2); max-width:18ch; }
+.slide h3 em{ font-style:italic; }
+.slide-lead{ font-family:"Cormorant Garamond", Georgia, serif; font-size:var(--t-lead); line-height:1.45; color:var(--ink-mid); max-width:40ch; }
+.slide-sub{ margin-top:var(--s-3); margin-bottom:var(--s-1); }
+.slide-gets{ list-style:none; margin:0; padding:0; counter-reset:g; max-width:60ch; }
+.slide-gets li{
+  counter-increment:g; display:grid; grid-template-columns:2.5rem minmax(0,1fr);
+  padding:0.85em 0; border-bottom:1px solid var(--hair); color:var(--ink);
+}
+.slide-gets li:last-child{ border-bottom:0; }
+.slide-gets li::before{ content:counter(g, upper-roman); font-size:var(--t-micro); letter-spacing:0.2em; color:var(--ink-soft); padding-top:0.45em; }
+.car-ctrl{ display:flex; align-items:center; gap:var(--s-2); margin-top:var(--s-2); }
+.arrow{
+  width:3.25rem; height:3.25rem; flex:0 0 auto;
+  border:1px solid var(--ink); background:transparent; color:var(--ink);
+  font:inherit; font-size:1.2rem; cursor:pointer;
+  transition:background 0.4s var(--slow), color 0.4s var(--slow), opacity 0.4s;
+}
+.arrow:hover:not(:disabled){ background:var(--ink); color:var(--bone); }
+.arrow:disabled{ opacity:0.25; cursor:default; }
+.dots{ display:flex; gap:0.6rem; flex:1; justify-content:center; }
+.dot{ width:0.55rem; height:0.55rem; border-radius:50%; border:1px solid var(--ink-soft); background:transparent; padding:0; cursor:pointer; }
+.dot[aria-current="true"]{ background:var(--ink); border-color:var(--ink); }
+.car-count{ min-width:3.5em; text-align:center; }
+@media (max-width:640px){ .dots{ display:none; } .car-ctrl{ justify-content:space-between; } }
+/* Controls sit above the slides so the floating Buy button never covers them */
+.carousel{ display:flex; flex-direction:column; }
+.carousel .car-ctrl{ order:-1; margin:0 0 var(--s-2); }
+.slide{ overflow:hidden; }
+/* Both arrows on the left, away from the floating Buy button */
+.car-ctrl .prev{ order:0; } .car-ctrl .next{ order:1; margin-left:-0.6rem; }
+.car-ctrl .car-count{ order:2; text-align:left; }
+.car-ctrl .dots{ order:3; justify-content:flex-start; }
+@media (max-width:640px){ .car-ctrl{ justify-content:flex-start; } }

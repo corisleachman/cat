@@ -292,8 +292,9 @@ sales_body = f"""
       <p class="measure" data-fade style="color:var(--ink-mid); max-width:52ch; margin-bottom:var(--s-3)">
         Each module follows the same shape: a moment to settle and check in, a short recap, something new
         to learn, a practical activity with printable worksheets, and one small thing to try during the week.
+        Use the arrows to look through them.
       </p>
-      {mods_list()}
+      %%CAROUSEL%%
     </div>
   </div>
 </section>
@@ -360,14 +361,18 @@ sales_body = f"""
 </section>
 """
 
-(OUT / "index.html").write_text(shell(
-  "Six-week CBT course — Catherine Leachman",
-  "A six-week, self-guided CBT course by Catherine Leachman. Learn to challenge unhelpful thoughts, understand your body's stress response, and feel calmer and more in control.",
-  sales_body, hero=True))
 
 # ─────────────────────────────── Module pages ───────────────────────────────
 
+WRITE_MODULE_PAGES = False
+MODULES = []
+
 def module(n, title_html, title_plain, lead, sections, homework, kind, gets=()):
+    """Collects each module's overview for the carousel on the course page.
+    The full session content below is kept for reference but no longer published."""
+    MODULES.append(dict(n=int(n), title=title_html, lead=lead, gets=list(gets)))
+    if not WRITE_MODULE_PAGES:
+        return
     n = int(n)
     prev_link = f'<a class="ulink" href="/course/module-{n-1}">← Module {n-1}</a>' if n > 1 else '<a class="ulink" href="/course">← Course overview</a>'
     next_link = f'<a class="ulink" href="/course/module-{n+1}">Module {n+1} →</a>' if n < 6 else '<a class="ulink" href="/course">Course overview →</a>'
@@ -801,5 +806,33 @@ even when things are going well. That is when the practice is easiest, and it ma
 <li>Come back to these modules whenever you need a refresher.</li></ul>""",
   "You have given yourself six weeks of time, attention and care. Keep offering yourself that kindness. You deserve it.",
   gets=['A complete, easy-to-remember toolkit: settle, notice, check, pause, test and act', 'A final measure of your progress across the six weeks', 'A letter from you to you, for the harder days ahead', 'A plan for keeping the skills going, and trusted places to turn for support', 'The confidence that you can look after your mind on your own'])
+
+def carousel():
+    slides = []
+    for m in MODULES:
+        items = "".join(f"<li>{g}</li>" for g in m["gets"])
+        slides.append(f'''<article class="slide" id="module-{m["n"]}" role="group" aria-roledescription="slide" aria-label="Module {m["n"]} of {len(MODULES)}">
+  <p class="label">Module {m["n"]} · about an hour</p>
+  <h3>{m["title"]}</h3>
+  <p class="slide-lead">{m["lead"]}</p>
+  <p class="label slide-sub">In this module · what you will get from it</p>
+  <ol class="slide-gets">{items}</ol>
+</article>''')
+    dots = "".join(f'<button type="button" class="dot" aria-label="Go to module {m["n"]}" data-go="{i}"></button>' for i, m in enumerate(MODULES))
+    return f'''<div class="carousel" data-fade aria-roledescription="carousel" aria-label="The six modules">
+  <div class="track" tabindex="0">{"".join(slides)}</div>
+  <div class="car-ctrl">
+    <button type="button" class="arrow prev" aria-label="Previous module">←</button>
+    <div class="dots">{dots}</div>
+    <span class="car-count label" aria-live="polite">1 / {len(MODULES)}</span>
+    <button type="button" class="arrow next" aria-label="Next module">→</button>
+  </div>
+</div>'''
+
+sales_body = sales_body.replace("%%CAROUSEL%%", carousel())
+(OUT / "index.html").write_text(shell(
+  "Six-week CBT course — Catherine Leachman",
+  "A six-week, self-guided CBT course by Catherine Leachman. Learn to challenge unhelpful thoughts, understand your body's stress response, and feel calmer and more in control.",
+  sales_body, hero=True))
 
 print("built", sorted(p.name for p in OUT.glob("*.html")))
