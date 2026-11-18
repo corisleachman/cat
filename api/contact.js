@@ -1,7 +1,7 @@
 // Vercel serverless function: receives the enquiry form and emails Catherine via Resend.
 // Needs the RESEND_API_KEY environment variable set in the Vercel project.
 
-const TO = process.env.CONTACT_TO || "cat.libbie@gmail.com";
+const TO = process.env.CONTACT_TO || "catherineleachmanwellness@gmail.com";
 const FROM = process.env.CONTACT_FROM || "Catherine Leachman website <enquiries@corisleachman.com>";
 
 const esc = (v) => String(v || "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
