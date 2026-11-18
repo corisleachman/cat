@@ -6,7 +6,6 @@
 <title>Catherine Leachman — Counselling, Psychotherapy &amp; Career Coaching</title>
 <meta name="description" content="Integrative counselling, psychotherapy and career coaching for adults. Online sessions across the UK. BACP Registered Member."/>
 <meta name="theme-color" content="#EFEDE9"/>
-<meta name="robots" content="noindex"/><!-- alternate version, kept out of search -->
 
 <link rel="icon" href="../catherine-leachman-1.jpeg"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -542,7 +541,7 @@ button.ulink{ background:none; border:0; border-bottom:1px solid var(--ink); fon
 
       <div class="media">
         <figure class="media-fig fig-portrait" data-fade>
-          <img src="../catherine-leachman-2.jpeg" alt="Catherine Leachman"/>
+          <img src="../catherine-leachman-5.jpeg" alt="Catherine Leachman"/>
           <figcaption class="label">Catherine Leachman · BACP Registered Member</figcaption>
         </figure>
 
@@ -660,8 +659,7 @@ button.ulink{ background:none; border:0; border-bottom:1px solid var(--ink); fon
 
       <div class="media">
         <figure class="media-fig" data-fade>
-          <!-- SET UP: replace with a photograph, 4:5 portrait, ~1200 x 1500 -->
-          <div class="slot"><p class="label">Image slot<br/>4 : 5 portrait</p></div>
+          <img src="../catherine-leachman-4.jpeg" alt="Catherine Leachman, standing and smiling" style="aspect-ratio:4/5; object-fit:cover"/>
         </figure>
 
         <div>
@@ -761,8 +759,11 @@ button.ulink{ background:none; border:0; border-bottom:1px solid var(--ink); fon
           everything in the first message — a sentence or two is enough.
         </p>
 
-        <!-- SET UP: replace the action with a real endpoint (Formspree, Basin, Netlify) -->
-        <form class="form" id="form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" data-fade>
+        <!-- Posts to the Vercel function in /api/contact.js, which emails Catherine via Resend -->
+        <form class="form" id="form" action="/api/contact" method="POST" data-fade>
+          <div style="position:absolute; left:-9999px" aria-hidden="true">
+            <label>Leave this empty <input type="text" name="website" tabindex="-1" autocomplete="off"/></label>
+          </div>
           <div class="field">
             <label class="label" for="n">Your name</label>
             <input id="n" name="name" type="text" placeholder="First name is fine" required/>
@@ -886,12 +887,25 @@ button.ulink{ background:none; border:0; border-bottom:1px solid var(--ink); fon
     var form = document.getElementById("form");
     if (form){
       form.addEventListener("submit", function(e){
-        if (form.getAttribute("action").indexOf("YOUR_FORM_ID") !== -1){
-          e.preventDefault();
-          var s = document.getElementById("status");
-          s.textContent = "This form is not connected yet — add a form endpoint to enable sending.";
-          s.setAttribute("data-shown","true");
-        }
+        e.preventDefault();
+        var s = document.getElementById("status");
+        var btn = form.querySelector("button[type=submit]");
+        function say(msg){ s.textContent = msg; s.setAttribute("data-shown","true"); }
+        var data = {};
+        new FormData(form).forEach(function(v, k){ data[k] = v; });
+        btn.disabled = true;
+        say("Sending…");
+        fetch(form.getAttribute("action"), {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Accept": "application/json" },
+          body: JSON.stringify(data)
+        }).then(function(r){
+          if (!r.ok) throw new Error("bad status");
+          form.reset();
+          say("Thank you. Your enquiry has been sent, and I will reply within five working days.");
+        }).catch(function(){
+          say("Sorry, something went wrong and your message was not sent. Please try again in a moment.");
+        }).then(function(){ btn.disabled = false; });
       });
     }
   }
