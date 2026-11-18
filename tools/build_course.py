@@ -13,7 +13,7 @@ HELP = """<aside class="safety" data-fade>
 </aside>"""
 
 def shell(title, desc, body, *, hero=False, noindex=False, nav_right=None):
-    nav_right = nav_right or '<a class="n" href="/course#modules" data-drop>Modules</a><a class="n" href="/course#join">Join</a>'
+    nav_right = nav_right or '<a class="n" href="/course#modules" data-drop>Modules</a><a class="n" href="/course#join">Buy</a>'
     robots = '<meta name="robots" content="noindex"/>' if noindex else ''
     return f"""<!DOCTYPE html>
 <html lang="en-GB">
@@ -50,7 +50,7 @@ def shell(title, desc, body, *, hero=False, noindex=False, nav_right=None):
       <div><p class="label">The course</p><ul>
         <li><a href="/course">Course overview</a></li>
         <li><a href="/course#modules">The six modules</a></li>
-        <li><a href="/course#join">Join the course</a></li></ul></div>
+        <li><a href="/course#join">Buy the course</a></li></ul></div>
       <div><p class="label">Catherine</p><ul>
         <li><a href="/">Counselling &amp; coaching</a></li>
         <li><a href="/#about">About Catherine</a></li>
@@ -71,7 +71,11 @@ def shell(title, desc, body, *, hero=False, noindex=False, nav_right=None):
 </html>
 """
 
+SHOW_FILES = False  # worksheet links hidden; module pages show a summary instead
+
 def files(*items):
+    if not SHOW_FILES:
+        return ""
     rows = "".join(
         f'<li><a href="/course/resources/{f}" target="_blank" rel="noopener"><span><span class="ft">{t}</span><span class="fd">{d}</span></span><span class="fx">PDF ↗</span></a></li>'
         for f, t, d in items)
@@ -164,13 +168,14 @@ def mods_list():
     return f'<ul class="mods">{rows}</ul>'
 
 sales_body = f"""
+<a class="buy-fab" id="buy" href="#join">Buy the course <span aria-hidden="true">→</span></a>
 <header class="hero hero-course">
-  <img class="hero-img" src="/catherine-leachman-2.jpeg" alt="Catherine Leachman, sitting in a calm room with plants and shelves"/>
+  <img class="hero-img" src="/catherine-leachman-6.jpeg" alt="Catherine Leachman, smiling, standing in a calm room with plants"/>
   <div class="hero-inner"><div class="hero-copy">
     <p class="label" data-fade>A six-week self-guided CBT course</p>
     <h1 data-fade data-d="1">Steady your mind, <em>one week at a time</em></h1>
     <p class="label" data-fade data-d="2">Work through it at home, at your own pace</p>
-    <div class="hero-cta" data-fade data-d="3"><a class="ulink" href="#join">Join the course</a></div>
+    <div class="hero-cta" data-fade data-d="3"><a class="ulink" href="#join">Buy the course</a></div>
   </div></div>
 </header>
 
@@ -326,12 +331,12 @@ sales_body = f"""
 
 <section class="band-lg cta-band" id="join">
   <div class="wrap g">
-    <p class="label rail" data-fade>Join the course</p>
+    <p class="label rail" data-fade>Buy the course</p>
     <div class="body">
-      <div class="head"><h2 data-fade>Ready to <em>begin?</em></h2></div>
+      <div class="head"><h2 data-fade>Buy the <em>course</em></h2></div>
       <p class="measure" data-fade style="color:var(--ink-mid); margin-bottom:var(--s-4)">
-        Leave your details below and I will email you with how to get started, including the cost and your
-        access to all six modules. If you have any questions about whether it is right for you, just ask.
+        Leave your details below and I will email you with the cost, how to pay, and your access
+        to all six modules and their worksheets. If you have any questions about whether it is right for you, just ask.
       </p>
       <form class="form" id="form" action="/api/contact" method="POST" data-fade>
         <div style="position:absolute; left:-9999px" aria-hidden="true">
@@ -346,7 +351,7 @@ sales_body = f"""
           <textarea id="m" name="message" placeholder="Optional"></textarea></div>
         <label class="consent"><input type="checkbox" name="consent" required/>
           <span>I am happy for Catherine to hold my details in order to reply about the course.</span></label>
-        <button class="ulink" type="submit">Send</button>
+        <button class="ulink" type="submit">Buy the course</button>
         <p class="status" id="status" role="status" aria-live="polite"></p>
       </form>
       {HELP}
@@ -362,7 +367,7 @@ sales_body = f"""
 
 # ─────────────────────────────── Module pages ───────────────────────────────
 
-def module(n, title_html, title_plain, lead, sections, homework, kind):
+def module(n, title_html, title_plain, lead, sections, homework, kind, gets=()):
     n = int(n)
     prev_link = f'<a class="ulink" href="/course/module-{n-1}">← Module {n-1}</a>' if n > 1 else '<a class="ulink" href="/course">← Course overview</a>'
     next_link = f'<a class="ulink" href="/course/module-{n+1}">Module {n+1} →</a>' if n < 6 else '<a class="ulink" href="/course">Course overview →</a>'
@@ -377,6 +382,16 @@ def module(n, title_html, title_plain, lead, sections, homework, kind):
     </div>
   </div>
 </header>
+
+<section class="band gets-band">
+  <div class="wrap g">
+    <p class="label rail" data-fade>In this module</p>
+    <div class="body">
+      <div class="head"><h2 data-fade>What you will <em>get from it</em></h2></div>
+      <ul class="rows gets">{"".join(f'<li data-fade><span class="n">{["I","II","III","IV","V"][i]}</span><span class="t">{g}</span></li>' for i, g in enumerate(gets))}</ul>
+    </div>
+  </div>
+</section>
 
 <section class="band">
   <div class="wrap g">
@@ -495,7 +510,8 @@ critical thoughts that pop up on their own: “I'll mess this up”, “they don
 <li><strong>Write it down</strong> with the situation and how you felt. Columns 1 to 3 of the thought record are perfect for this.</li></ol>
 <p>You don't need to change anything yet. Just notice.</p>"""
   + files(("thought-record.pdf", "Thought record", "This week, fill in the first three columns: situation, moods and automatic thoughts.")),
-  "Noticing a painful thought is not the same as believing it. This week, see if you can watch your thoughts with the kind of curiosity you would offer a friend.")
+  "Noticing a painful thought is not the same as believing it. This week, see if you can watch your thoughts with the kind of curiosity you would offer a friend.",
+  gets=['A clear, simple picture of what CBT is and how it can help you', 'A map of how your thoughts, feelings, body and behaviour feed each other, using your own example', 'An understanding of fight-or-flight, so the racing heart and churning stomach make sense and feel less frightening', 'A snapshot of where you are starting from, so you can see your progress later', 'The first skill of CBT: noticing and capturing your automatic negative thoughts'])
 
 # Module 2 ------------------------------------------------------------
 module(2, "Settling, and <em>fact-checking</em>", "Settling and fact-checking",
@@ -528,7 +544,7 @@ your attention back to the present moment through your senses, which helps your 
 <p>The <strong>5, 4, 3, 2, 1</strong> exercise at the start of each module is one form of grounding. Others include feeling your feet
 pressing into the floor, holding a warm drink and noticing its weight and warmth, or describing an object in front of you in detail.</p>
 <p>Our attention is selective. We tend to notice only a small part of what is around us, and when we are stressed it locks
-onto threats. The worksheet below helps you practise widening it on purpose.</p>
+onto threats. Practising noticing everything around you, on purpose, helps to widen it again.</p>
 {files(("selective-attention-worksheet.pdf", "Selective attention worksheet", "Take five minutes to notice everything around you: sights, sounds, temperature, your position, and more."))}
 """),
    ("How we see things", "Our minds take <em>shortcuts</em>", f"""
@@ -576,7 +592,8 @@ a more balanced thought emerged, and their belief in the original thought, and t
 worksheet or the full thought record (all seven columns now). Settle yourself with a longer out-breath first.</p>
 <p>Notice how much you believe the thought before and after. Even a small drop, from 80% to 60%, is real progress.</p>"""
   + files(("thought-record.pdf", "Thought record", "Now using all seven columns."), ("cognitive-restructuring-worksheet.pdf", "Cognitive restructuring worksheet", "Print a few copies for the week.")),
-  "You are not trying to win an argument with yourself. You are learning to be a fair witness, and that includes being fair to you.")
+  "You are not trying to win an argument with yourself. You are learning to be a fair witness, and that includes being fair to you.",
+  gets=['A quick, reliable way to calm your body using your breath and the vagus nerve', 'Grounding techniques that bring you back to the present moment when your mind races', 'Insight into the shortcuts your mind takes when you feel anxious or low', 'Three questions to fact-check any thought, rational or irrational', 'Confidence using cognitive restructuring to find a fairer, more balanced thought'])
 
 # Module 3 ------------------------------------------------------------
 module(3, "Facing what <em>bothers you</em>", "Facing what bothers you",
@@ -630,7 +647,8 @@ the battery) with the pressures and stressors in your life, and the other with t
 <p>If you feel ready, plan one small behavioural experiment too.</p>"""
   + files(("butterfly-of-balance.pdf", "Butterfly of balance", "Pressures on one wing, restoring activities on the other."),
           ("mood-battery.pdf", "The mood battery", "Sort your day into stressors (red) and de-stressors (green).")),
-  "Rest and enjoyment are not rewards you have to earn. They are part of what keeps you well.")
+  "Rest and enjoyment are not rewards you have to earn. They are part of what keeps you well.",
+  gets=['A better understanding of what gets in the way, and how to work around it', 'A calm, step-by-step way to face the things that bother you, smallest first', 'A graded approach to situations you avoid, if anxiety is holding you back', 'The skill of testing a worry in real life with a small, safe experiment', 'A clearer view of what drains you and what restores you, and a nudge to do more of what you love'])
 
 # Module 4 ------------------------------------------------------------
 module(4, "Feelings are <em>not facts</em>", "Feelings are not facts",
@@ -687,7 +705,8 @@ we act first, in small, planned steps, and the mood often follows.</p>
 noticed what was going on for you: the thought, the feeling, what you noticed in your body, and what you did. Did you catch any emotional reasoning? Did you use STOP?</p>
 <p>Keep a mood diary alongside it, rating your mood morning, afternoon and evening, and noting anything that affected it.</p>"""
   + files(("mood-diary.pdf", "Mood diary", "Rate your mood three times a day and note what was going on."), ("thought-record-stopp.pdf", "Thought record with STOPP prompts", "For recording your moments of awareness.")),
-  "Your feelings deserve to be listened to, not obeyed. You can say to a feeling: “I hear you, and I'm going to check the facts.”")
+  "Your feelings deserve to be listened to, not obeyed. You can say to a feeling: “I hear you, and I'm going to check the facts.”",
+  gets=['The ability to spot emotional reasoning, when a feeling is being treated as a fact', 'Questions that help you step back and see a situation more objectively', 'The STOP skill: a pause button for moments when emotions run high', 'A practical way to lift low mood by changing what you do, one small step at a time', 'A growing awareness of your thoughts, feelings and behaviour, day to day'])
 
 # Module 5 ------------------------------------------------------------
 module(5, "Putting it <em>into practice</em>", "Putting it into practice",
@@ -730,7 +749,8 @@ not a failure. It is useful information, and it may mean you would benefit from 
 Write down what happened, the thought that came up, what you did with it, and how things turned out. Use a thought record if it helps.</p>
 <p>It doesn't need to be a big moment or a perfect one. A small win, noticed, is worth a lot.</p>"""
   + files(("thought-record.pdf", "Thought record", "For recording your real-life moment.")),
-  "Look at how much you have shown up for yourself over these weeks. Whatever your scores say, that effort deserves to be recognised.")
+  "Look at how much you have shown up for yourself over these weeks. Whatever your scores say, that effort deserves to be recognised.",
+  gets=['A clear sense of how far you have come since Module 1', 'Recognition of which tools are working best for you', 'An honest check on whether more support would help, and where to find it', 'Your early warning signs, written down, so you can act on them sooner', 'A real example of you using CBT in your own life'])
 
 # Module 6 ------------------------------------------------------------
 module(6, "Your toolkit <em>for life</em>", "Your toolkit for life",
@@ -779,6 +799,7 @@ even when things are going well. That is when the practice is easiest, and it ma
 <li>Keep a mood journal.</li>
 <li>Start each day, or each hard moment, by settling your body first.</li>
 <li>Come back to these modules whenever you need a refresher.</li></ul>""",
-  "You have given yourself six weeks of time, attention and care. Keep offering yourself that kindness. You deserve it.")
+  "You have given yourself six weeks of time, attention and care. Keep offering yourself that kindness. You deserve it.",
+  gets=['A complete, easy-to-remember toolkit: settle, notice, check, pause, test and act', 'A final measure of your progress across the six weeks', 'A letter from you to you, for the harder days ahead', 'A plan for keeping the skills going, and trusted places to turn for support', 'The confidence that you can look after your mind on your own'])
 
 print("built", sorted(p.name for p in OUT.glob("*.html")))

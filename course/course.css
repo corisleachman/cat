@@ -553,3 +553,36 @@ button.ulink{ background:none; border:0; border-bottom:1px solid var(--ink); fon
 .cta-band{ background:var(--bone-warm); border-block:1px solid var(--hair); }
 .prose ul.files, .prose ul.rows, .prose ul.mods{ padding-left:0; }
 .prose .files li, .prose .rows li{ margin-bottom:0; }
+
+/* Full-viewport hero on the course page */
+.hero-course{ min-height:100svh; min-height:100vh; }
+@supports (height:100svh){ .hero-course{ min-height:100svh; } }
+.hero-course .hero-img{ object-position:62% 30%; }
+@media (max-width:700px){ .hero-course .hero-img{ object-position:64% 20%; } }
+
+/* Permanent "Buy the course" button */
+.buy-fab{
+  position:fixed; z-index:60;
+  right:clamp(1rem, 0.5rem + 2vw, 2.5rem); bottom:clamp(1rem, 0.5rem + 2vw, 2.5rem);
+  background:var(--ink); color:var(--bone);
+  font-size:var(--t-micro); letter-spacing:0.22em; text-transform:uppercase; font-weight:400;
+  padding:1.15em 1.8em;
+  box-shadow:0 10px 30px rgba(38,34,30,0.22);
+  transition:background 0.5s var(--slow), opacity 0.5s var(--slow), transform 0.5s var(--slow);
+}
+.buy-fab:hover{ background:#4a4640; }
+.buy-fab[data-hidden="true"]{ opacity:0; transform:translateY(0.6rem); pointer-events:none; }
+@media (max-width:640px){
+  .buy-fab{ left:1rem; right:1rem; bottom:1rem; text-align:center; }
+  .foot{ padding-bottom:calc(var(--s-3) + 4.5rem); }
+}
+
+/* Module summary */
+.gets-band{ padding-bottom:0; }
+.rows.gets .t{ font-size:clamp(1.15rem, 1rem + 0.6vw, 1.45rem); max-width:44ch; }
+.rows.gets li{ padding-block:clamp(1rem, 0.8rem + 0.8vw, 1.6rem); }
+.rows.gets li{ grid-template-columns:3rem minmax(0,1fr); }
+@media (max-width:640px){
+  .hero-course .hero-cta{ display:none; }
+  .hero-course .hero-inner{ padding-bottom:calc(var(--s-4) + 4rem); }
+}

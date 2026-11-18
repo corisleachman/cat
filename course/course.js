@@ -60,6 +60,14 @@
       if (store.get("done:" + el.getAttribute("data-mod")) === "1"){ el.textContent = "Finished ✓"; el.setAttribute("data-done","true"); }
     });
 
+    // Hide the floating "Buy" button while the buy section itself is on screen
+    var fab = document.getElementById("buy"), join = document.getElementById("join");
+    if (fab && join && "IntersectionObserver" in window){
+      new IntersectionObserver(function(es){
+        es.forEach(function(e){ fab.setAttribute("data-hidden", e.isIntersecting ? "true" : "false"); });
+      }, { threshold:0.15 }).observe(join);
+    }
+
     // Interest form → /api/contact
     var form = document.getElementById("form");
     if (form){
