@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "rm -rf public && mkdir -p public && cp alt/index.html public/index.html && cp *.jpeg public/ && sed -i 's#\\.\\./catherine-#catherine-#g' public/index.html",
+  "buildCommand": "rm -rf public && mkdir -p public && cp alt/index.html public/index.html && cp *.jpeg public/ && cp -r course public/course && sed -i 's#\\.\\./catherine-#catherine-#g' public/index.html",
   "outputDirectory": "public",
   "cleanUrls": true
 }
